@@ -4,6 +4,7 @@ const Userinfo = () => {
     return (
         <div>
             <h1>Userinfo</h1>
+            <Link to="/">logout</Link> <br/>
             <Link to="../votations/votation/messages">atras</Link>
         </div>
     );

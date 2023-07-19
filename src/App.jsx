@@ -1,19 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Login from "./views/login/login";
+import Votations from "./views/votations/votations";
+import Votation from "./views/votation/votation";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <a>Vite + React</a>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <Routes>
+        <Route exact path="/" element={<Login />} />
+        <Route path="/votations" element={<Votations />} />
+        <Route path="/votation" element={<Votation />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

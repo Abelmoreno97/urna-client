@@ -5,6 +5,7 @@ const VotationMap = () => {
     return (
         <>
             <h1>Votation</h1>
+            <Link to="/userinfo">userinfo</Link> <br/>
             <Votebar />
             <div>
                 <Link to="../votations/votation/messages">mensajes</Link>

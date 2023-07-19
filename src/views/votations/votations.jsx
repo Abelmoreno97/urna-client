@@ -6,6 +6,7 @@ const Votations = () => {
     return (
         <>
             <h1>Votations active</h1>
+            <Link to="/userinfo">userinfo</Link> <br/>
             <Link to="/votations/votation/messages" element={<VotationMessage />}  >Votation</Link>
         </>
     );

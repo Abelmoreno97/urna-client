@@ -7,8 +7,9 @@ import VotationMap from "./views/votation/votationMap";
 import Vote from "./views/vote/vote";
 import Userinfo from "./views/userinfo/userinfo";
 import Votationform from "./views/votationform/votationform";
-import Confirmlogout from "./components/confirmlogout/confirmlogout";
+import Confirmlogout from "./views/confirmlogout/confirmlogout";
 import Userinfocopy from "./views/userinfo/userinfocopy";
+import Msgdetail from "./views/msgdetail/msgdetail";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/userinfo" element={<Userinfo />}/>
         <Route path="/userinfocopy" element={<Userinfocopy />}/>
         <Route path="/confirmlogout" element={<Confirmlogout />} />
+        <Route path="/votations/votation/messages/msgdetail" element={<Msgdetail />}/>
       </Routes>
     </>
   );

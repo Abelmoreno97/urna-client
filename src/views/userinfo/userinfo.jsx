@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import style from "./userinfo.module.css";
 
 const Userinfo = () => {
     return (
-        <div>
+        <div className={style.cont}>
             <h1>Userinfo</h1>
-            <Link to="/confirmlogout">logout</Link> <br/>
-            <Link to="../votations/votation/messages">atras</Link>
+            <Link className={style.Link} to="/confirmlogout">logout</Link> <br/>
+            <Link className={style.Link} to="../votations/votation/messages">atras</Link>
         </div>
     );
 }

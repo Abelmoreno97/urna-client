@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-const Userinfo = () => {
+const Userinfocopy = () => {
     return (
         <div>
             <h1>Userinfo</h1>
             <Link to="/confirmlogout">logout</Link> <br/>
-            <Link to="../votations/votation/messages">atras</Link>
+            <Link to="/votations">atras</Link>
         </div>
     );
 }
 
-export default Userinfo;
+export default Userinfocopy;

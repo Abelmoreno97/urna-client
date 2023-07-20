@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import style from "./login.module.css";
 
 const Login = ()=>{
     return(
-        <div>
+        <div className={style.cont}>
             <p>LOGIN:</p>
-            <Link to="/votations">Votations</Link>
+            <Link  to="/votations" className={style.Link}>Userlogin enter</Link>
         </div>
     )
 };

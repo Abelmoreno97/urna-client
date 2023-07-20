@@ -1,9 +1,10 @@
 import {Link} from "react-router-dom"
+import style from "./vote.module.css"
 const Vote = () => {
     return (
-        <div>
+        <div className={style.cont}>
             <h1>Vote</h1>
-            <Link to="../votations/votation/messages">atras</Link>
+            <Link className={style.Link} to="../votations/votation/messages">atras</Link>
         </div>
     );
 }

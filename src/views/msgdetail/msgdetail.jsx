@@ -1,20 +1,23 @@
 import style from "./msgdetail.module.css";
 import { Link } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
+import { Image, VStack } from "@chakra-ui/react";
+import chatleft from "../../assets/chat-left.svg"
+import heart from "../../assets/heart.svg"
 
 const Msgdetail = () => {
     
     return (
         <div className={style.cont}>
             <h1>Votation detail</h1>
-            <Link className={style.Link} to="../votations/votation/messages">volver</Link> <br/>
            <Votebar/>
+            <Link className={style.Link} to="../votations/votation/messages">volver</Link> <br/>
             <div>
                 <div className={style.votecont}>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
+                    <div className={style.votecard}>VOTO RAIZ DEL QUE SE ABRIO EL HILO DE RESPUESTAS <VStack ><Image src={chatleft}/><Image src={heart}/></VStack></div>
+                    <div className={style.votecard}>Voto acompañado de mensaje <VStack ><Image src={heart}/></VStack></div>
+                    <div className={style.votecard}>Voto acompañado de mensaje <VStack ><Image src={heart}/></VStack></div>
+                    <div className={style.votecard}>Voto acompañado de mensaje <VStack ><Image src={heart}/></VStack></div>
                 </div>
             </div>
           

@@ -10,15 +10,18 @@
 }
 
 .Link{
+    
 background-color:  rgb(43, 43, 43);
 padding: 10px;
 border-radius: 5px;
+display:flex;
+flex-direction: row;
+align-items: center;
 }
 
 .Link:hover{
     background-color: rgb(30, 30, 30);
 }
-
 .votecont{
     padding:20px ;
     background-color: cadetblue;
@@ -30,13 +33,19 @@ border-radius: 5px;
     justify-content: start;
 }
 
+.mapcard{
+    height: 450px;
+    width: 200px
+}
+
 .votecard{
     padding:5px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 50px;
     width: 350px;
     border:1px solid rgb(48, 48, 48);
 }
+

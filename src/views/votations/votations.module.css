@@ -13,6 +13,9 @@
 background-color:  rgb(43, 43, 43);
 padding: 10px;
 border-radius: 5px;
+display:flex;
+flex-direction: row;
+align-items: flex-end;
 }
 
 .Link:hover{

@@ -1,7 +1,7 @@
 .cont{
     height: 700px;
     width: 500px;
-    padding: 50px;
+    padding: 30px;
     background-color: darkslategray;
     display: flex;
     flex-direction: column;

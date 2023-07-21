@@ -1,28 +1,64 @@
 import { Link } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
+import Navbar from "../../components/navbar/navbar";
+import { Image, VStack } from "@chakra-ui/react";
+import chatleft from "../../assets/chat-left.svg"
+import heart from "../../assets/heart.svg"
 
 const VotationMessage = () => {
-    
-    return (
-        <div className={style.cont}>
-            <h1>Votation</h1>
-            <Link className={style.Link} to="/userinfo">userinfo</Link> <br/>
-           <Votebar/>
-            <div>
-                <Link className={style.Link} to="../votations/votation/map">mapa</Link>
-                <div className={style.votecont}>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                    <div className={style.votecard}>Voto acompañado de mensaje <Link className={style.Link} to="../votations/votation/messages/msgdetail">comentar</Link></div>
-                </div>
+  return (
+    <div>
+      <div className={style.cont}>
+        <h1>Votation</h1>
+        <Votebar />
+        <div>
+
+          <div className={style.votecont}>
+            <div className={style.votecard}>
+              Voto acompañado de mensaje{" "}
+              <VStack>
+              <Link
+       
+                to="../votations/votation/messages/msgdetail"
+              >
+                <Image src={chatleft}></Image>
+              </Link>
+              <Image src={heart}></Image>
+              </VStack>
             </div>
-            <Link className={style.Link} to="/votations/votation/vote">VOTE</Link>
-          
+            <div className={style.votecard}>
+              Voto acompañado de mensaje{" "}
+              <VStack>
+              <Link
             
+                to="../votations/votation/messages/msgdetail"
+              >
+                <Image src={chatleft}></Image>
+              </Link>
+              <Image src={heart}></Image>
+              </VStack>
+            </div>
+            <div className={style.votecard}>
+              Voto acompañado de mensaje{" "}
+              <VStack>
+              <Link
+               
+                to="../votations/votation/messages/msgdetail"
+              >
+                <Image src={chatleft}></Image>
+              </Link>
+              <Image src={heart}></Image>
+              </VStack>
+            </div>
+            
+          </div>
         </div>
-    );
-}
+      </div>
+      <Navbar />
+
+    </div>
+  );
+};
 
 export default VotationMessage;

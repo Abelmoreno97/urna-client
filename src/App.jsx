@@ -8,22 +8,26 @@ import Vote from "./views/vote/vote";
 import Userinfo from "./views/userinfo/userinfo";
 import Votationform from "./views/votationform/votationform";
 import Msgdetail from "./views/msgdetail/msgdetail";
-import Navbar from "./components/navbar/navbar";
 
 function App() {
   const loc = useLocation();
   return (
     <>
       <Routes>
-        {/* <Route path="/votations" element={<Navbar />} /> */}
         <Route exact path="/" element={<Login />} />
         <Route exact path="/votations" element={<Votations />} />
-        <Route path="/votations/votation/messages" element={< VotationMessage/>} />
-        <Route path="/votations/votation/map" element={< VotationMap/>}/>
-        <Route path="/votations/votation/vote" element={<Vote/> }/>
+        <Route
+          path="/votations/votation/messages"
+          element={<VotationMessage />}
+        />
+        <Route path="/votations/votation/map" element={<VotationMap />} />
+        <Route path="/votations/votation/vote" element={<Vote />} />
         <Route path="/votations/form" element={<Votationform />} />
-        <Route path="/votations/votation/messages/msgdetail" element={<Msgdetail />}/>
-        <Route path="/userinfo" element={<Userinfo />}/>
+        <Route
+          path="/votations/votation/messages/msgdetail"
+          element={<Msgdetail />}
+        />
+        <Route path="/userinfo" element={<Userinfo />} />
       </Routes>
     </>
   );

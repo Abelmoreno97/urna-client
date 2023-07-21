@@ -1,12 +1,8 @@
-.cont{
-    height: 700px;
-    width: 500px;
-    padding: 50px;
-    background-color: darkslategray;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.navbar{
+display: flex;
+flex-direction: row;
+justify-content: space-around ;
+background-color: grey;
 }
 
 .Link{
@@ -22,30 +18,5 @@ align-items: center;
 .Link:hover{
     background-color: rgb(30, 30, 30);
 }
-.votecont{
-    padding:20px ;
-    background-color: cadetblue;
-    height: 500px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-}
 
-.mapcard{
-    height: 450px;
-    width: 200px
-}
-
-.votecard{
-    padding:5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 50px;
-    width: 350px;
-    border:1px solid rgb(48, 48, 48);
-}
 

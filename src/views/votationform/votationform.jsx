@@ -6,6 +6,8 @@ const Votationform = () => {
     <div className={style.cont}>
       <h1>Votationform</h1> <br />
       <Input placeholder="Titulo de la votacion" />
+      <Input placeholder="fecha de inicio" />
+      <Input placeholder="fecha de finalizacion" />
       <h1>INGRESAR OPCIONES</h1> <br />
       <div style={{width: "400px", display: "flex", flexDirection: "column", alignItems: "start" }}>
       <div style={{width: "250px"}}>

@@ -9,24 +9,22 @@ import {
   AlertDialogOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useAuth0 } from "@auth0/auth0-react";
+const LOGOUT_URL = import.meta.env.VITE_API_LOGOUT_URL;
 
 function AlertDialogExample() {
-  const { logout } = useAuth0();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
+  const logout = () => {
+    location.href(LOGOUT_URL);
+  };
   return (
     <>
       <Button colorScheme="red" onClick={onOpen}>
         Logout
       </Button>
 
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
         <AlertDialogOverlay>
           <AlertDialogContent bg={"gray.800"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">

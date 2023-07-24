@@ -49,7 +49,7 @@ const Votationform = () => {
         <Button>ENVIAR</Button>
       </div>
       <button className={style.Link} onClick={() => history.back()}>
-        atras
+        ATRAS
       </button>
     </div>
   );

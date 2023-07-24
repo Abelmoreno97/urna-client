@@ -39,7 +39,7 @@ const Vote = () => {
         <Image w={"150px"} h={"100px"} src={urna} alt="urna"></Image>
         </HStack>
             <button className={style.Link} onClick={() => history.back()} >
-          atras
+          ATRAS
         </button>
         </div>
     );

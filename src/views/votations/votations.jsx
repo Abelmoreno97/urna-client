@@ -4,7 +4,15 @@ import style from "./votations.module.css";
 import { Image } from "@chakra-ui/react";
 
 const Votations = () => {
+  const [votationsData, setVotationsData] = useState([]);
   // const { user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    fetch("http://localhost:3081/voting")
+      .then((res) => res.json())
+      .then((data) => setVotationsData(data));
+  } , []);
+
   return (
     <div>
       <div className={style.cont}>
@@ -17,6 +25,13 @@ const Votations = () => {
           Votacion activa
         </Link>
         <br />
+        <div>
+        {votationsData.map((votation) => {
+          <p>{votation.title}</p>
+        })}
+        </div>
+        <br />
+
         <Link className={style.Link} to="/votations/form">
           solicitar votacion
         </Link>

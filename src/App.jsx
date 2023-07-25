@@ -8,6 +8,7 @@ import Vote from "./views/vote/vote";
 import Userinfo from "./views/userinfo/userinfo";
 import Votationform from "./views/votationform/votationform";
 import Msgdetail from "./views/msgdetail/msgdetail";
+import ProfileComplete from "./views/profilecomplete/profilecompelte";
 
 function App() {
   const loc = useLocation();
@@ -28,6 +29,7 @@ function App() {
           element={<Msgdetail />}
         />
         <Route path="/userinfo" element={<Userinfo />} />
+        <Route path="/profile/complete" element={<ProfileComplete />}/>
       </Routes>
     </>
   );

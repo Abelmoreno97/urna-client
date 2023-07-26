@@ -1,7 +1,21 @@
+import { useState } from "react";
 import style from "./votationform.module.css";
-import { Input, Button, Textarea } from "@chakra-ui/react";
+import { Input, Button, Textarea, HStack } from "@chakra-ui/react";
+import VotationOption from "../../components/votationOption/votationOption";
 
 const Votationform = () => {
+  const [optionsData, setOptionsData] = useState([{}, {}]);
+
+  const addOption = () => {
+    setOptionsData((prev) => [...prev, {}]);
+  };
+
+  const removeOption = () => {
+    if (optionsData.length > 2) {
+      setOptionsData((prev) => prev.slice(0, -1));
+    }
+  };
+
   return (
     <div className={style.cont}>
       <h1>Votationform</h1> <br />
@@ -9,43 +23,28 @@ const Votationform = () => {
       <Input placeholder="fecha de inicio" />
       <Input placeholder="fecha de finalizacion" />
       <h1>INGRESAR OPCIONES</h1> <br />
-      <div style={{width: "400px", display: "flex", flexDirection: "column", alignItems: "start" }}>
-      <div style={{width: "250px"}}>
-        <h2>OPCION 1</h2> <br />
-        <Input placeholder="Titulo de la votacion" />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            margin: "10px",
-            gap: "10px",
-          }}
-        >
-          <Button>Add avatar</Button> <Button>Add detail</Button>
-        </div>
+      <div
+        style={{ width: "400px", display: "flex", flexDirection: "column", alignItems: "start" }}
+      >
+        {optionsData.map((option, index) => (
+          <VotationOption
+            key={index}
+            index={index}
+            option={option}
+            setOptionsData={setOptionsData}
+          />
+        ))}
       </div>
-      <div style={{width: "250px"}}>
-        <h2>OPCION 2</h2> <br />
-        <Input placeholder="Titulo de la votacion" />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            margin: "10px",
-            gap: "10px",
-          }}
-        >
-          <Button>Add avatar</Button> <Button>Add detail</Button>
-        </div>
-      </div>
-      </div>
-      <br/>
-      <Button>Add option</Button>
-      <div style={{width: "100%"}}>
+      <br />
+      <HStack>
+        <Button onClick={addOption}>Añadir</Button>
+        <Button onClick={removeOption} bg={"red.400"}>
+          Remover
+        </Button>
+      </HStack>
+      <div style={{ width: "100%" }}>
         <h1>detalles</h1>
-        <Textarea  placeholder='proporcione contexto sobre la tematica de la votacion y detalles aqui.' />
+        <Textarea placeholder="proporcione contexto sobre la tematica de la votacion y detalles aqui." />
         <Button>ENVIAR</Button>
       </div>
       <button className={style.Link} onClick={() => history.back()}>

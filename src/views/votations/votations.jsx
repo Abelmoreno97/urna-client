@@ -6,13 +6,6 @@ import { Image } from "@chakra-ui/react";
 const Votations = () => {
   const [votationsData, setVotationsData] = useState([]);
   // const { user, isAuthenticated } = useAuth0();
-
-  useEffect(() => {
-    fetch("http://localhost:3081/voting")
-      .then((res) => res.json())
-      .then((data) => setVotationsData(data));
-  } , []);
-
   return (
     <div>
       <div className={style.cont}>

@@ -5,6 +5,8 @@ import { extendTheme } from "@chakra-ui/react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 // 2. Extend the theme to include custom colors, fonts, etc
 const theme = extendTheme({
@@ -28,9 +30,11 @@ const theme = extendTheme({
 
 const rootElement = document.getElementById("root");
 ReactDOM.createRoot(rootElement).render(
-  <ChakraProvider theme={theme}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ChakraProvider>
+  <Provider store={store}>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ChakraProvider>
+  </Provider>
 );

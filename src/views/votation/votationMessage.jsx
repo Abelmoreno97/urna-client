@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Navbar from "../../components/navbar/navbar";
@@ -7,6 +7,9 @@ import chatleft from "../../assets/chat-left.svg"
 import heart from "../../assets/heart.svg"
 
 const VotationMessage = () => {
+
+  const {id} = useParams();
+console.log(id);
   return (
     <div>
       <div className={style.cont}>

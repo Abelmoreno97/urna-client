@@ -18,7 +18,7 @@ function App() {
         <Route exact path="/" element={<Login />} />
         <Route exact path="/votations" element={<Votations />} />
         <Route
-          path="/votations/votation/messages"
+          path="/votation/:id/messages"
           element={<VotationMessage />}
         />
         <Route path="/votations/votation/map" element={<VotationMap />} />

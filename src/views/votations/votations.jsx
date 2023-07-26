@@ -14,18 +14,18 @@ const Votations = () => {
     <div>
       <div className={style.cont}>
         <h1>Votations active</h1>
-        <Link
-          className={style.Link}
-          to="/votations/votation/messages"
-          element={<VotationMessage />}
-        >
-          Votacion activa
-        </Link>
         <br />
         <div>
-          {data.map((votation) => {
-            <p>{votation.title}</p>;
-          })}
+          {data.map((votation, index) => (
+            <Link
+              key={index}
+              className={style.Link}
+              to={`/votation/${votation._id}/messages`}
+              element={<VotationMessage />}
+            >
+              {votation.title}
+            </Link>
+          ))}
         </div>
         <br />
 

@@ -2,17 +2,14 @@ import { Link } from "react-router-dom";
 import VotationMessage from "../votation/votationMessage";
 import style from "./votations.module.css";
 import { Image } from "@chakra-ui/react";
+import { useGetVotations } from "./useGetVotations";
 
 const Votations = () => {
-  const [votationsData, setVotationsData] = useState([]);
-  // const { user, isAuthenticated } = useAuth0();
-
-  useEffect(() => {
-    fetch("http://localhost:3081/voting")
-      .then((res) => res.json())
-      .then((data) => setVotationsData(data));
-  } , []);
-
+  const { data, status, error } = useGetVotations();
+  console.log(data);
+  if (error) return <h2>Error</h2>;
+  if (status == "loading") return <h2>Loader</h2>;
+  if (data.length == 0) return <h2>No hay votaciones activas</h2>;
   return (
     <div>
       <div className={style.cont}>
@@ -26,9 +23,9 @@ const Votations = () => {
         </Link>
         <br />
         <div>
-        {votationsData.map((votation) => {
-          <p>{votation.title}</p>
-        })}
+          {data.map((votation) => {
+            <p>{votation.title}</p>;
+          })}
         </div>
         <br />
 
@@ -48,8 +45,8 @@ const Votations = () => {
             borderRadius="50%"
             w={"30px"}
             h={"30px"}
-            src={user?.picture}
-            alt={user?.name}
+            // src={user?.picture}
+            // alt={user?.name}
           ></Image>{" "}
           <p>userinfo</p>
         </Link>

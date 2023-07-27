@@ -1,8 +1,8 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
 
 function VotationOption({ option, index, setOptionsData }) {
-  const { title } = option;
+  const { title, images } = option;
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -13,29 +13,44 @@ function VotationOption({ option, index, setOptionsData }) {
     ]);
   };
 
-  const [file, setFile] = useState();
-  const [previewURL, setPreviewURL] = useState("");
+  const [previewURL, setPreviewURL] = useState({});
 
   const handleFile = (e) => {
     const selectedFile = e.target.files[0];
+    const { name } = e.target;
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
-      setPreviewURL(objectURL);
-      setFile(selectedFile);
+      setPreviewURL((prev) => {
+        return { ...prev, [name]: objectURL };
+      });
+      setOptionsData((prev) => {
+        const newImages = prev[index].images;
+        newImages[name === "image1" ? 0 : 1] = selectedFile;
+        return [
+          ...prev.slice(0, index),
+          { ...prev[index], images: newImages },
+          ...prev.slice(index + 1),
+        ];
+      });
     }
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("image", file);
-    fetch("http://localhost:3001/upload", {
-      method: "POST",
+    formData.append("title", title);
 
+    formData.append("images", images[0]);
+    formData.append("images", images[1]);
+    fetch(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/options`, {
+      method: "POST",
       body: formData,
     })
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => {
+        // acá tenemos que setear la info en el localStorage
+        console.log(res);
+      });
   };
 
   return (
@@ -76,8 +91,13 @@ function VotationOption({ option, index, setOptionsData }) {
           style={{ display: "none" }}
           onChange={handleFile}
         />
-        {/* <Button>Add avatar</Button> <Button>Add detail</Button> */}
       </div>
+      <p>Imágenes previas</p>
+      <HStack>
+        <img style={{ width: "45%" }} src={previewURL.image1} />
+        <img style={{ width: "45%" }} src={previewURL.image2} />
+      </HStack>
+      <Button onClick={handleOnSubmit}>Confirmar</Button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./votationform.module.css";
 import { Input, Button, Textarea, HStack } from "@chakra-ui/react";
 import VotationOption from "../../components/votationOption/votationOption";
+import { BACKEND_BASE_URL } from "../../config/envs";
 
 const Votationform = () => {
   const [optionsData, setOptionsData] = useState([
@@ -31,7 +32,7 @@ const Votationform = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("user_id", "c2632c9f-7d86-4039-8867-526ed2a6f0db");
-    formData.append("title", "Titulo de la votacion6");
+    formData.append("title", "Titulo de la votacion7");
     formData.append("description", "description ");
     formData.append("opening_date", "2023-07-25T19:30:01.518+00:00");
     formData.append("closing_date", "2023-07-25T19:30:01.518+00:00");
@@ -43,7 +44,7 @@ const Votationform = () => {
       });
     });
 
-    fetch(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/voting`, {
+    fetch(`${BACKEND_BASE_URL}/voting`, {
       method: "POST",
       body: formData,
     })

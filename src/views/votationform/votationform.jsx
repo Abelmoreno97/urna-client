@@ -10,13 +10,18 @@ const Votationform = () => {
     { title: "", images: [] },
   ]);
 
-  const [formData, setFormData] = useState({
-    user_id: "",
+  const [form, setForm] = useState({
     title: "",
     description: "",
     opening_date: "",
     closing_date: "",
   });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(e.target);
+    setForm({ ...form, [name]: value });
+  }
 
   const addOption = () => {
     setOptionsData((prev) => [...prev, { title: "", images: [] }]);
@@ -32,10 +37,10 @@ const Votationform = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("user_id", "c2632c9f-7d86-4039-8867-526ed2a6f0db");
-    formData.append("title", "Titulo de la votacion7");
-    formData.append("description", "description ");
-    formData.append("opening_date", "2023-07-25T19:30:01.518+00:00");
-    formData.append("closing_date", "2023-07-25T19:30:01.518+00:00");
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("opening_date", form.opening_date);
+    formData.append("closing_date", form.closing_date);
 
     optionsData.forEach((option, index) => {
       formData.append(`option${index + 1}Title`, option.title);
@@ -57,12 +62,17 @@ const Votationform = () => {
   return (
     <div className={style.cont}>
       <h1>Votationform</h1> <br />
-      <Input placeholder="Titulo de la votacion" />
-      <Input placeholder="fecha de inicio" />
-      <Input placeholder="fecha de finalizacion" />
+      <Input placeholder="Titulo de la votacion" name="title" onChange={handleChange} />
+      <Input placeholder="fecha de inicio" name="opening_date" type="datetime-local" onChange={handleChange} />
+      <Input placeholder="fecha de finalizacion" name="closing_date" type="datetime-local" onChange={handleChange} />
       <h1>INGRESAR OPCIONES</h1> <br />
       <div
-        style={{ width: "400px", display: "flex", flexDirection: "column", alignItems: "start" }}
+        style={{
+          width: "400px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "start",
+        }}
       >
         {optionsData.map((option, index) => (
           <VotationOption
@@ -82,7 +92,11 @@ const Votationform = () => {
       </HStack>
       <div style={{ width: "100%" }}>
         <h1>detalles</h1>
-        <Textarea placeholder="proporcione contexto sobre la tematica de la votacion y detalles aqui." />
+        <Textarea
+          placeholder="proporcione contexto sobre la tematica de la votacion y detalles aqui."
+          name="description"
+          onChange={handleChange}
+        />
         <Button onClick={handleSubmit}>Enviar</Button>
       </div>
       <button className={style.Link} onClick={() => history.back()}>

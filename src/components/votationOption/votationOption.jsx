@@ -1,6 +1,5 @@
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import { _localStorage } from "../../utils";
 
 function VotationOption({ option, index, setOptionsData }) {
   const { title, images } = option;

@@ -30,11 +30,11 @@ const Votationform = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("user_id", "jsdfkajdsaksdfj");
-    formData.append("title", "Titulo de la votacion");
+    formData.append("user_id", "c2632c9f-7d86-4039-8867-526ed2a6f0db");
+    formData.append("title", "Titulo de la votacion6");
     formData.append("description", "description ");
-    formData.append("opening_date", "28/07/23");
-    formData.append("closing_date", "28/07/23");
+    formData.append("opening_date", "2023-07-25T19:30:01.518+00:00");
+    formData.append("closing_date", "2023-07-25T19:30:01.518+00:00");
 
     optionsData.forEach((option, index) => {
       formData.append(`option${index + 1}Title`, option.title);

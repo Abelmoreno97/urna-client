@@ -1,5 +1,6 @@
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { _localStorage } from "../../utils";
 
 function VotationOption({ option, index, setOptionsData }) {
   const { title, images } = option;
@@ -33,24 +34,6 @@ function VotationOption({ option, index, setOptionsData }) {
         ];
       });
     }
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-
-    formData.append("images", images[0]);
-    formData.append("images", images[1]);
-    fetch(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/options`, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        // acá tenemos que setear la info en el localStorage
-        console.log(res);
-      });
   };
 
   return (
@@ -92,12 +75,11 @@ function VotationOption({ option, index, setOptionsData }) {
           onChange={handleFile}
         />
       </div>
-      <p>Imágenes previas</p>
+      <p>Vistas previas</p>
       <HStack>
         <img style={{ width: "45%" }} src={previewURL.image1} />
         <img style={{ width: "45%" }} src={previewURL.image2} />
       </HStack>
-      <Button onClick={handleOnSubmit}>Confirmar</Button>
     </div>
   );
 }

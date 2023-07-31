@@ -1,4 +1,4 @@
-import React from "react";
+import {useRef} from "react";
 import {
   Button,
   AlertDialog,
@@ -13,7 +13,7 @@ const LOGOUT_URL = import.meta.env.VITE_API_LOGOUT_URL;
 
 function AlertDialogExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef();
+  const cancelRef = useRef();
 
   const logout = () => {
     location.href(LOGOUT_URL);
@@ -28,7 +28,7 @@ function AlertDialogExample() {
         <AlertDialogOverlay>
           <AlertDialogContent bg={"gray.800"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Customer
+              Log Out
             </AlertDialogHeader>
 
             <AlertDialogBody>Are you sure?</AlertDialogBody>

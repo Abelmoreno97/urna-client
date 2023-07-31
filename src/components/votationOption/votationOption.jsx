@@ -39,6 +39,7 @@ function VotationOption({ option, index, setOptionsData }) {
     <div style={{ width: "250px" }}>
       <h2>Opción {index + 1}</h2> <br />
       <Input
+      required
         placeholder="Titulo de la votacion"
         value={title}
         name="title"

@@ -16,7 +16,8 @@ import {
 } from "@chakra-ui/react";
 import VotationOption from "../../components/votationOption/votationOption";
 import { BACKEND_BASE_URL } from "../../config/envs";
-import { formValidator } from "./formValidator";
+import { formValidator } from "./validations/formValidator";
+import useTitleValidator from "./validations/useTitleValidator";
 
 const Votationform = () => {
   const [optionsData, setOptionsData] = useState([
@@ -38,15 +39,17 @@ const Votationform = () => {
     option0: "",
     option1: "",
   });
-  console.log(errors);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
 
+  const { tittleValidator } = useTitleValidator();
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target);
     setErrors((prev) => ({ ...prev, [name]: formValidator(name, value, form) }));
+    if (name === "title") {
+      setErrors((prev) => ({ ...prev, [name]: tittleValidator(value) }));
+    }
     setForm({ ...form, [name]: value });
   };
 

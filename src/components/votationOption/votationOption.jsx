@@ -1,29 +1,17 @@
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import { optionValidator } from "./validations/optionValidator";
+import { optionValidator, refreshOptionErrors } from "./validations/optionValidator";
 
-function VotationOption({
-  option,
-  index,
-  optionsData: otherOptions,
-  setOptionsData,
-  setErrors,
-}) {
+function VotationOption({ option, index, optionsData: allOptions, setOptionsData, setErrors }) {
   const { title, images } = option;
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
     setErrors((prev) => {
-      const {
-        title,
-        description,
-        opening_date,
-        closing_date,
-        ...optionErrors
-      } = prev;
+      const { title, description, opening_date, closing_date, ...optionErrors } = prev;
       return {
         ...prev,
-        ...optionValidator({ index, title: value, otherOptions, optionErrors }),
+        ...optionValidator({ index, title: value, allOptions, optionErrors }),
       };
     });
     setOptionsData((prev) => [
@@ -55,7 +43,18 @@ function VotationOption({
     }
   };
   const handleRemoveOption = () => {
-    setOptionsData((prev) => [...prev.filter((option, i) => i != index)]);
+    const newOptionsData = [...allOptions.filter((option, i) => i != index)];
+    setOptionsData(() => newOptionsData);
+    setErrors((prev) => {
+      const { title, description, opening_date, closing_date } = prev;
+      return {
+        title,
+        description,
+        opening_date,
+        closing_date,
+        ...refreshOptionErrors(newOptionsData),
+      };
+    });
   };
 
   const handleRemoveImage = (name) => {

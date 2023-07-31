@@ -1,16 +1,16 @@
-export function optionValidator({ index, title, otherOptions, optionErrors }) {
+export function optionValidator({ index, title, allOptions, optionErrors }) {
   let newErrors = { ...optionErrors };
-  let currentOtherOptions = [...otherOptions];
-  currentOtherOptions[index] = { ...otherOptions[index], title: title };
+  let currentOtherOptions = [...allOptions];
+  currentOtherOptions[index] = { ...allOptions[index], title: title };
 
-  for (let i = 0; i < otherOptions.length; i++) {
+  for (let i = 0; i < allOptions.length; i++) {
     if (i === index) continue;
-    if (otherOptions[i].title === title) {
+    if (allOptions[i].title === title) {
       newErrors = { ...newErrors, ["option" + i]: "El titulo no debe repetirse" };
       newErrors = { ...newErrors, ["option" + index]: "El titulo no debe repetirse" };
     }
   }
-  if (!otherOptions.map((option) => option.title).includes(title)) {
+  if (!allOptions.map((option) => option.title).includes(title)) {
     newErrors = { ...newErrors, ["option" + index]: "" };
   }
 
@@ -25,4 +25,29 @@ export function optionValidator({ index, title, otherOptions, optionErrors }) {
   });
 
   return newErrors;
+}
+
+export function refreshOptionErrors(allOptions) {
+  const errors = {};
+
+  const titleAmounts = {};
+
+  allOptions.forEach((option, index) => {
+    if (titleAmounts[option.title]) {
+      titleAmounts[option.title].push(index);
+    } else {
+      titleAmounts[option.title] = [index];
+    }
+  });
+
+  Object.values(titleAmounts)
+    .filter((arr) => arr.length > 1)
+    .forEach((arr) => {
+      arr.forEach((index) => {
+        errors["option" + index] = "El titulo no debe repetirse";
+      });
+    });
+  console.log(allOptions.length);
+
+  return errors;
 }

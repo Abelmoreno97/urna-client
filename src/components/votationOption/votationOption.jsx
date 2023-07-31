@@ -55,11 +55,9 @@ function VotationOption({
     }
   };
   const handleRemoveOption = () => {
-    setOptionsData((prev) => [
-      ...prev.slice(0, index),
-      ...prev.slice(index + 1),
-    ]);
+    setOptionsData((prev) => [...prev.filter((option, i) => i != index)]);
   };
+
   const handleRemoveImage = (name) => {
     setPreviewURL((prev) => {
       const newPreviewURL = { ...prev };

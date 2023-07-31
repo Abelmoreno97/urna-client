@@ -1,6 +1,6 @@
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import { optionValidator } from "../../views/votationform/optionValidator";
+import { optionValidator } from "./validations/optionValidator";
 
 function VotationOption({ option, index, optionsData, setOptionsData, setErrors }) {
   const { title, images } = option;

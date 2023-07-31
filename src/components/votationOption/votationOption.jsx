@@ -2,13 +2,25 @@ import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { optionValidator } from "./validations/optionValidator";
 
-function VotationOption({ option, index, optionsData: otherOptions, setOptionsData, setErrors }) {
+function VotationOption({
+  option,
+  index,
+  optionsData: otherOptions,
+  setOptionsData,
+  setErrors,
+}) {
   const { title, images } = option;
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
     setErrors((prev) => {
-      const { title, description, opening_date, closing_date, ...optionErrors } = prev;
+      const {
+        title,
+        description,
+        opening_date,
+        closing_date,
+        ...optionErrors
+      } = prev;
       return {
         ...prev,
         ...optionValidator({ index, title: value, otherOptions, optionErrors }),
@@ -42,10 +54,31 @@ function VotationOption({ option, index, optionsData: otherOptions, setOptionsDa
       });
     }
   };
+  const handleRemoveOption = () => {
+    setOptionsData((prev) => [...prev.filter((option, i) => i != index)]);
+  };
+
+  const handleRemoveImage = (name) => {
+    setPreviewURL((prev) => {
+      const newPreviewURL = { ...prev };
+      delete newPreviewURL[name];
+      return newPreviewURL;
+    });
+    setOptionsData((prev) => {
+      const newImages = prev[index].images;
+      delete newImages[name === "image1" ? 0 : 1];
+      return [
+        ...prev.slice(0, index),
+        { ...prev[index], images: newImages },
+        ...prev.slice(index + 1),
+      ];
+    });
+  };
 
   return (
     <div style={{ width: "250px" }}>
       <h2>Opción {index + 1}</h2> <br />
+      <Button onClick={handleRemoveOption}>X</Button>
       <Input
         required
         placeholder="Titulo de la votacion"
@@ -85,8 +118,14 @@ function VotationOption({ option, index, optionsData: otherOptions, setOptionsDa
       </div>
       <p>Vistas previas</p>
       <HStack>
-        <img style={{ width: "45%" }} src={previewURL.image1} />
-        <img style={{ width: "45%" }} src={previewURL.image2} />
+        <div>
+          <img style={{ width: "45%" }} src={previewURL.image1} />
+          <button onClick={() => handleRemoveImage("image1")}>X</button>
+        </div>
+        <div>
+          <img style={{ width: "45%" }} src={previewURL.image2} />
+          <button onClick={() => handleRemoveImage("image2")}>X</button>
+        </div>
       </HStack>
     </div>
   );

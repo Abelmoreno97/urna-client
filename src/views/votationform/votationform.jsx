@@ -92,6 +92,7 @@ const Votationform = () => {
         console.log(res);
       });
   };
+  console.log(errors);
 
   return (
     <div className={Gstyle.cont}>

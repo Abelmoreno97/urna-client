@@ -1,11 +1,17 @@
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { optionValidator } from "../../views/votationform/optionValidator";
 
-function VotationOption({ option, index, setOptionsData }) {
+function VotationOption({ option, index, optionsData, setOptionsData, setErrors }) {
   const { title, images } = option;
 
+  const otherTitles = optionsData.map((option) => option.title);
   const handleOnChange = (e) => {
     const { value, name } = e.target;
+    setErrors((prev) => ({
+      ...prev,
+      ["option" + index]: optionValidator(value, otherTitles),
+    }));
     setOptionsData((prev) => [
       ...prev.slice(0, index),
       { ...prev[index], [name]: value },
@@ -39,7 +45,7 @@ function VotationOption({ option, index, setOptionsData }) {
     <div style={{ width: "250px" }}>
       <h2>Opción {index + 1}</h2> <br />
       <Input
-      required
+        required
         placeholder="Titulo de la votacion"
         value={title}
         name="title"

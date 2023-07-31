@@ -5,19 +5,27 @@ import { optionValidator } from "./validations/optionValidator";
 function VotationOption({
   option,
   index,
-  optionsData,
+  optionsData: otherOptions,
   setOptionsData,
   setErrors,
 }) {
   const { title, images } = option;
 
-  const otherTitles = optionsData.map((option) => option.title);
   const handleOnChange = (e) => {
     const { value, name } = e.target;
-    setErrors((prev) => ({
-      ...prev,
-      ["option" + index]: optionValidator(value, otherTitles),
-    }));
+    setErrors((prev) => {
+      const {
+        title,
+        description,
+        opening_date,
+        closing_date,
+        ...optionErrors
+      } = prev;
+      return {
+        ...prev,
+        ...optionValidator({ index, title: value, otherOptions, optionErrors }),
+      };
+    });
     setOptionsData((prev) => [
       ...prev.slice(0, index),
       { ...prev[index], [name]: value },

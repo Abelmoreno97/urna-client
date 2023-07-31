@@ -66,7 +66,6 @@ const Votationform = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("user_id", "c2632c9f-7d86-4039-8867-526ed2a6f0db");
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("opening_date", form.opening_date);
@@ -86,6 +85,7 @@ const Votationform = () => {
     fetch(`${BACKEND_BASE_URL}/voting`, {
       method: "POST",
       body: formData,
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((res) => {

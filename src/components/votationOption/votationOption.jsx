@@ -2,7 +2,13 @@ import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { optionValidator } from "./validations/optionValidator";
 
-function VotationOption({ option, index, optionsData, setOptionsData, setErrors }) {
+function VotationOption({
+  option,
+  index,
+  optionsData,
+  setOptionsData,
+  setErrors,
+}) {
   const { title, images } = option;
 
   const otherTitles = optionsData.map((option) => option.title);
@@ -40,10 +46,33 @@ function VotationOption({ option, index, optionsData, setOptionsData, setErrors 
       });
     }
   };
+  const handleRemoveOption = () => {
+    setOptionsData((prev) => [
+      ...prev.slice(0, index),
+      ...prev.slice(index + 1),
+    ]);
+  };
+  const handleRemoveImage = (name) => {
+    setPreviewURL((prev) => {
+      const newPreviewURL = { ...prev };
+      delete newPreviewURL[name];
+      return newPreviewURL;
+    });
+    setOptionsData((prev) => {
+      const newImages = prev[index].images;
+      delete newImages[name === "image1" ? 0 : 1];
+      return [
+        ...prev.slice(0, index),
+        { ...prev[index], images: newImages },
+        ...prev.slice(index + 1),
+      ];
+    });
+  };
 
   return (
     <div style={{ width: "250px" }}>
       <h2>Opción {index + 1}</h2> <br />
+      <Button onClick={handleRemoveOption}>X</Button>
       <Input
         required
         placeholder="Titulo de la votacion"
@@ -83,8 +112,14 @@ function VotationOption({ option, index, optionsData, setOptionsData, setErrors 
       </div>
       <p>Vistas previas</p>
       <HStack>
-        <img style={{ width: "45%" }} src={previewURL.image1} />
-        <img style={{ width: "45%" }} src={previewURL.image2} />
+        <div>
+          <img style={{ width: "45%" }} src={previewURL.image1} />
+          <button onClick={() => handleRemoveImage("image1")}>X</button>
+        </div>
+        <div>
+          <img style={{ width: "45%" }} src={previewURL.image2} />
+          <button onClick={() => handleRemoveImage("image2")}>X</button>
+        </div>
       </HStack>
     </div>
   );

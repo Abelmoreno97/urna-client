@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./votationform.module.css";
+import Gstyle from "./../../AppGlobal.module.css";
 import { Input, Button, Textarea, HStack } from "@chakra-ui/react";
 import VotationOption from "../../components/votationOption/votationOption";
 import { BACKEND_BASE_URL } from "../../config/envs";
@@ -60,7 +61,7 @@ const Votationform = () => {
   };
 
   return (
-    <div className={style.cont}>
+    <div className={Gstyle.cont}>
       <h1>Votationform</h1> <br />
       <Input placeholder="Titulo de la votacion" name="title" onChange={handleChange} />
       <Input placeholder="fecha de inicio" name="opening_date" type="datetime-local" onChange={handleChange} />
@@ -99,7 +100,7 @@ const Votationform = () => {
         />
         <Button onClick={handleSubmit}>Enviar</Button>
       </div>
-      <button className={style.Link} onClick={() => history.back()}>
+      <button className={Gstyle.Link} onClick={() => history.back()}>
         ATRAS
       </button>
     </div>

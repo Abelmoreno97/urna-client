@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
+import Gstyle from "./../../AppGlobal.module.css";
 import Navbar from "../../components/navbar/navbar";
 import { Image, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg"
@@ -12,7 +13,7 @@ const VotationMessage = () => {
 console.log(id);
   return (
     <div>
-      <div className={style.cont}>
+      <div className={Gstyle.cont}>
         <h1>Votation</h1>
         <Votebar />
         <div>

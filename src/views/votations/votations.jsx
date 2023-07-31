@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import VotationMessage from "../votation/votationMessage";
 import style from "./votations.module.css";
+import Gstyle from "./../../AppGlobal.module.css";
 import { Image } from "@chakra-ui/react";
 import { useGetVotations } from "./useGetVotations";
 
@@ -12,14 +13,14 @@ const Votations = () => {
   if (data.length == 0) return <h2>No hay votaciones activas</h2>;
   return (
     <div>
-      <div className={style.cont}>
+      <div className={Gstyle.cont}>
         <h1>Votations active</h1>
         <br />
         <div>
           {data.map((votation, index) => (
             <Link
               key={index}
-              className={style.Link}
+              className={Gstyle.Link}
               to={`/votation/${votation._id}/messages`}
               element={<VotationMessage />}
             >
@@ -29,7 +30,7 @@ const Votations = () => {
         </div>
         <br />
 
-        <Link className={style.Link} to="/votations/form">
+        <Link className={Gstyle.Link} to="/votations/form">
           solicitar votacion
         </Link>
       </div>
@@ -40,7 +41,7 @@ const Votations = () => {
           justifyContent: "end",
         }}
       >
-        <Link className={style.Link} to="/userinfo">
+        <Link className={Gstyle.Link} to="/userinfo">
           <Image
             borderRadius="50%"
             w={"30px"}

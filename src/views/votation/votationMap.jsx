@@ -1,11 +1,12 @@
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Navbar from "../../components/navbar/navbar";
+import Gstyle from "./../../AppGlobal.module.css";
 
 const VotationMap = () => {
   return (
     <div>
-      <div className={style.cont}>
+      <div className={Gstyle.cont}>
         <h1>Votation</h1>
         <Votebar />
         <div>

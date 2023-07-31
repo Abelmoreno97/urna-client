@@ -1,10 +1,11 @@
 import { HStack, Image, VStack, Textarea } from "@chakra-ui/react";
 import style from "./vote.module.css"
+import Gstyle from "./../../AppGlobal.module.css";
 import person from "../../assets/person.svg";
 import urna from "../../assets/urna.png";
 const Vote = () => {
     return (
-        <div className={style.cont}>
+        <div className={Gstyle.cont}>
             <h1>Vote</h1>
             <h2>Elige tu opcion</h2>
             <HStack>
@@ -38,7 +39,7 @@ const Vote = () => {
         </HStack>
         <Image w={"150px"} h={"100px"} src={urna} alt="urna"></Image>
         </HStack>
-            <button className={style.Link} onClick={() => history.back()} >
+            <button className={Gstyle.Link} onClick={() => history.back()} >
           ATRAS
         </button>
         </div>

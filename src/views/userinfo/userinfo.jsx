@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom";
 import style from "./userinfo.module.css";
+import Gstyle from "./../../AppGlobal.module.css";
 // import { useAuth0 } from "@auth0/auth0-react";
 import AlertDialogExample from "../../components/confirmlogout/confirmlogout";
 
 const Userinfo = () => {
   // const { user, isAuthenticated, logout } = useAuth0();
   return (
-    <div className={style.cont}>
+    <div className={Gstyle.cont}>
       <h1>Userinfo</h1>
       <img src={user?.picture} alt={user?.name}></img>
       <h1>{user?.name}</h1>
       <p>{user?.email}</p>
       <p>{user?.nickname}</p>
       <AlertDialogExample />
-      <button className={style.Link} onClick={() => history.back()}>
+      <button className={Gstyle.Link} onClick={() => history.back()}>
         atras
       </button>
     </div>

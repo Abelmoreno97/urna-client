@@ -4,8 +4,8 @@ function useTitleValidator() {
   const [titles, setTitles] = useState([]);
 
   useEffect(() => {
-    Votation.getAllTitles().then((data) => {
-      setTitles(data);
+    Votation.getAllTitles().then((res) => {
+      setTitles(res.data.map(({ title }) => title));
     });
   }, []);
 

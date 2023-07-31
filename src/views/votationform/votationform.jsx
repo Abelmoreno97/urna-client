@@ -92,6 +92,7 @@ const Votationform = () => {
         console.log(res);
       });
   };
+  console.log(errors);
 
   return (
     <div className={Gstyle.cont}>
@@ -149,7 +150,11 @@ const Votationform = () => {
         <>
           <Button
             colorScheme="red"
-            isDisabled={Object.values(errors).some((value) => value !== "")}
+            isDisabled={
+              Object.values(errors).some((value) => value !== "") ||
+              Object.values(form).some((value) => value === "") ||
+              Object.values(optionsData).some((option) => option.title === "")
+            }
             onClick={onOpen}
           >
             Enviar

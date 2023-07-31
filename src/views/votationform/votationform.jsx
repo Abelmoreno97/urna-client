@@ -16,13 +16,13 @@ import {
 } from "@chakra-ui/react";
 import VotationOption from "../../components/votationOption/votationOption";
 import { BACKEND_BASE_URL } from "../../config/envs";
+import { formValidator } from "./formValidator";
 
 const Votationform = () => {
   const [optionsData, setOptionsData] = useState([
     { title: "", images: [] },
     { title: "", images: [] },
   ]);
-
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -30,12 +30,23 @@ const Votationform = () => {
     closing_date: "",
   });
 
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+    opening_date: "",
+    closing_date: "",
+    option0: "",
+    option1: "",
+  });
+  console.log(errors);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(e.target);
+    setErrors((prev) => ({ ...prev, [name]: formValidator(name, value, form) }));
     setForm({ ...form, [name]: value });
   };
 
@@ -82,21 +93,16 @@ const Votationform = () => {
   return (
     <div className={Gstyle.cont}>
       <h1>Votationform</h1> <br />
+      <Input required placeholder="Titulo de la votacion" name="title" onChange={handleChange} />
       <Input
-      required
-        placeholder="Titulo de la votacion"
-        name="title"
-        onChange={handleChange}
-      />
-      <Input
-      required
+        required
         placeholder="fecha de inicio"
         name="opening_date"
         type="datetime-local"
         onChange={handleChange}
       />
       <Input
-      required
+        required
         placeholder="fecha de finalizacion"
         name="closing_date"
         type="datetime-local"
@@ -116,7 +122,9 @@ const Votationform = () => {
             key={index}
             index={index}
             option={option}
+            optionsData={optionsData}
             setOptionsData={setOptionsData}
+            setErrors={setErrors}
           />
         ))}
       </div>
@@ -130,21 +138,21 @@ const Votationform = () => {
       <div style={{ width: "100%" }}>
         <h1>detalles</h1>
         <Textarea
-        required
+          required
           placeholder="proporcione contexto sobre la tematica de la votacion y detalles aqui."
           name="description"
           onChange={handleChange}
         />
         <>
-          <Button colorScheme="red" onClick={onOpen}>
+          <Button
+            colorScheme="red"
+            isDisabled={Object.values(errors).some((value) => value !== "")}
+            onClick={onOpen}
+          >
             Enviar
           </Button>
 
-          <AlertDialog
-            isOpen={isOpen}
-            leastDestructiveRef={cancelRef}
-            onClose={onClose}
-          >
+          <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
             <AlertDialogOverlay>
               <AlertDialogContent bg={"gray.800"}>
                 <AlertDialogHeader fontSize="lg" fontWeight="bold">

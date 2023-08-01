@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import style from "./navbar.module.css";
 import { Image } from "@chakra-ui/react";
 import { cookie } from "../../utils";
 
 const Navbar = () => {
+  const { id } = useParams();
   const user = cookie.getObject("userData");
   return (
     <div className={style.navbar}>
@@ -13,7 +14,7 @@ const Navbar = () => {
       <Link className={style.Link} to="../votations/votation/messages">
         MESSAGES
       </Link>
-      <Link className={style.Link} to="/votations/votation/vote">
+      <Link className={style.Link} to={`/votation/${id}/vote`}>
         VOTE
       </Link>
       <Link className={style.Link} to="../votations/votation/map">

@@ -4,7 +4,7 @@ import person from "../../assets/person.svg";
 const Votebar = ({ sortedOptions }) => {
   return (
     <HStack>
-      {sortedOptions.slice(0, 3).map((option, i) => (
+      {sortedOptions?.slice(0, 3).map((option, i) => (
         <VStack key={"sortedOption" + i}>
           <Image w={"75px"} h={"75px"} src={option.images[0] || person} alt="opcion"></Image>
           <p>{option.title}</p>

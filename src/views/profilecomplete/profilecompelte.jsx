@@ -28,8 +28,14 @@ const ProfileComplete = () => {
 
     const emailFromCookies = cookie.get("email");
     const usernameFromCookies = cookie.get("username");
+    const avatarFromCookies = cookie.get("avatar");
     setProfileInfo((prev) => {
-      return { ...prev, email: emailFromCookies, username: usernameFromCookies };
+      return {
+        ...prev,
+        email: emailFromCookies,
+        username: usernameFromCookies,
+        avatar: avatarFromCookies,
+      };
     });
   }, []);
 
@@ -64,13 +70,13 @@ const ProfileComplete = () => {
     <div>
       <h1>UserComplete</h1>
       <form onSubmit={handleSubmit}>
-        <RadioGroup onChange={(e) => handleChange({ target: { name: "avatar", value: e } })}>
+        {/* <RadioGroup onChange={(e) => handleChange({ target: { name: "avatar", value: e } })}>
           <Stack direction="row">
             <Radio value="349e8669-c6da-4b28-9df3-ea51afaf05f1">First</Radio>
             <Radio value="349e8669-c6da-4b28-9df3-ea51afaf05f2">Second</Radio>
             <Radio value="349e8669-c6da-4b28-9df3-ea51afaf05f3">Third</Radio>
           </Stack>
-        </RadioGroup>
+        </RadioGroup> */}
         <FormControl isRequired>
           <FormLabel>Username</FormLabel>
           <Input type="text" name="username" value={profileInfo.username} onChange={handleChange} />

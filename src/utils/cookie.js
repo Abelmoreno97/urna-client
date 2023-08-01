@@ -4,5 +4,11 @@ export const get = (key) => {
   if (cookieValue) {
     return decodeURIComponent(cookieValue.split("=")[1]);
   }
-  return null;
+};
+export const getObject = (key) => {
+  const cookieValue = document.cookie.split("; ").find((cookie) => cookie.startsWith(key + "="));
+
+  if (cookieValue) {
+    return JSON.parse(decodeURIComponent(cookieValue.split("=")[1]).slice(2));
+  }
 };

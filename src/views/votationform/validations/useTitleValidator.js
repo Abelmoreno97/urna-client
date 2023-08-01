@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Votation from "../../../services/Votation";
+import Votation from "../../../repositories/Votation";
 function useTitleValidator() {
   const [titles, setTitles] = useState([]);
 

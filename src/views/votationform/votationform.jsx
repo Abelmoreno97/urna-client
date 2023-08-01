@@ -46,7 +46,10 @@ const Votationform = () => {
   const { tittleValidator } = useTitleValidator();
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setErrors((prev) => ({ ...prev, [name]: formValidator(name, value, form) }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: formValidator(name, value, form),
+    }));
     if (name === "title") {
       setErrors((prev) => ({ ...prev, [name]: tittleValidator(value) }));
     }
@@ -55,12 +58,6 @@ const Votationform = () => {
 
   const addOption = () => {
     setOptionsData((prev) => [...prev, { title: "", images: [] }]);
-  };
-
-  const removeOption = () => {
-    if (optionsData.length > 2) {
-      setOptionsData((prev) => prev.slice(0, -1));
-    }
   };
 
   const handleSubmit = (e) => {
@@ -96,8 +93,14 @@ const Votationform = () => {
 
   return (
     <div className={Gstyle.cont}>
-      <h1>Votationform</h1> <br />
-      <Input required placeholder="Titulo de la votacion" name="title" onChange={handleChange} />
+      <h1>Votationform</h1>
+      <div className={style.inputCont}>
+      <Input
+        required
+        placeholder="Titulo de la votacion"
+        name="title"
+        onChange={handleChange}
+      />
       <Input
         required
         placeholder="fecha de inicio"
@@ -112,15 +115,17 @@ const Votationform = () => {
         type="datetime-local"
         onChange={handleChange}
       />
-      <h1>INGRESAR OPCIONES</h1> <br />
+      </div>
       <div
-        style={{
-          width: "400px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "start",
-        }}
+        className={style.options}
+        // style={{
+          //   width: "400px",
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   alignItems: "start",
+        // }}
       >
+          <h1>INGRESAR OPCIONES</h1> <br />
         {optionsData.map((option, index) => (
           <VotationOption
             key={index}
@@ -131,15 +136,12 @@ const Votationform = () => {
             setErrors={setErrors}
           />
         ))}
-      </div>
-      <br />
       <HStack>
         <Button onClick={addOption}>Añadir</Button>
-        <Button onClick={removeOption} bg={"red.400"}>
-          Remover
-        </Button>
       </HStack>
-      <div style={{ width: "100%" }}>
+      </div>
+
+      <div className={style.inputCont}>
         <h1>detalles</h1>
         <Textarea
           required
@@ -160,7 +162,11 @@ const Votationform = () => {
             Enviar
           </Button>
 
-          <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+          <AlertDialog
+            isOpen={isOpen}
+            leastDestructiveRef={cancelRef}
+            onClose={onClose}
+          >
             <AlertDialogOverlay>
               <AlertDialogContent bg={"gray.800"}>
                 <AlertDialogHeader fontSize="lg" fontWeight="bold">

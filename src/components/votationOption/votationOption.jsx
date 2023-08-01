@@ -1,6 +1,8 @@
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { optionValidator, refreshOptionErrors } from "./validations/optionValidator";
+import style from './votationOption.module.css';
+import Gstyle from './../../AppGlobal.module.css';
 
 function VotationOption({ option, index, optionsData: allOptions, setOptionsData, setErrors }) {
   const { title, images } = option;
@@ -75,9 +77,12 @@ function VotationOption({ option, index, optionsData: allOptions, setOptionsData
   };
 
   return (
-    <div style={{ width: "250px" }}>
-      <h2>Opción {index + 1}</h2> <br />
+    <div className={style.option} >
+<div className={style.optionTitle}>
+      <h2>Opción {index + 1}</h2> 
       <Button onClick={handleRemoveOption}>X</Button>
+</div>
+  
       <Input
         required
         placeholder="Titulo de la votacion"
@@ -94,7 +99,7 @@ function VotationOption({ option, index, optionsData: allOptions, setOptionsData
           gap: "10px",
         }}
       >
-        <label htmlFor={`image1-${index}`} style={{ cursor: "pointer" }}>
+        <label className={Gstyle.Link} htmlFor={`image1-${index}`} style={{ cursor: "pointer" }}>
           Imagen 1
         </label>
         <input
@@ -104,7 +109,7 @@ function VotationOption({ option, index, optionsData: allOptions, setOptionsData
           style={{ display: "none" }}
           onChange={handleFile}
         />
-        <label htmlFor={`image2-${index}`} style={{ cursor: "pointer" }}>
+        <label className={Gstyle.Link} htmlFor={`image2-${index}`} style={{ cursor: "pointer" }}>
           Imagen 2
         </label>
         <input

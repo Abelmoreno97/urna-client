@@ -1,0 +1,9 @@
+.option{
+    border: 1px solid black;
+    padding:5px;
+}
+.optionTitle{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

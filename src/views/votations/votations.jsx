@@ -15,7 +15,7 @@ const Votations = () => {
       <div className={Gstyle.cont}>
         <h1>Votations active</h1>
         <br />
-        <div>
+        <div className={style.mapcont}>
           {data.map((votation, index) => (
             <Link
               key={index}

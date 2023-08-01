@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import style from "./navbar.module.css";
 import { Image } from "@chakra-ui/react";
+import { cookie } from "../../utils";
 
 const Navbar = () => {
-  // const  user  =  lo vamos a sacar el localStorage
-
+  const user = cookie.getObject("userData");
   return (
     <div className={style.navbar}>
       <Link className={style.Link} to="/votations">
@@ -25,7 +25,7 @@ const Navbar = () => {
           borderRadius="50%"
           w={"30px"}
           h={"30px"}
-          src={user?.picture}
+          src={user?.avatar}
           alt={user?.name}
         ></Image>{" "}
         <p>userinfo</p>

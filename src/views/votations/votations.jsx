@@ -7,7 +7,6 @@ import { useGetVotations } from "./useGetVotations";
 
 const Votations = () => {
   const { data, status, error } = useGetVotations();
-  console.log(data);
   if (error) return <h2>Error</h2>;
   if (status == "loading") return <h2>Loader</h2>;
   if (data.length == 0) return <h2>No hay votaciones activas</h2>;

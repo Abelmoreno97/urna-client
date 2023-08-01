@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
-import Votation from '../../services/Votation';
+import Votation from "../../repositories/Votation";
 import { useDispatch, useSelector } from "react-redux";
 import { setData, setError, setStatus } from "../../redux/features/votationsSlice";
-
 
 export function useGetVotations() {
   const { data, status, error } = useSelector((state) => state.votations);
@@ -12,9 +11,10 @@ export function useGetVotations() {
 
   useEffect(() => {
     dispatch(setStatus("loading"));
-      Votation.getAll()
+    Votation.getAll()
       .then((res) => {
-        dispatch(setData(res.data))})
+        dispatch(setData(res.data));
+      })
       .catch((err) => dispatch(setError(err)));
   }, []);
 

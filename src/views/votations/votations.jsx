@@ -21,7 +21,7 @@ const Votations = () => {
             <Link
               key={index}
               className={Gstyle.Link}
-              to={`/votation/${votation._id}/messages`}
+              to={`/votation/${votation._id}`}
               element={<VotationMessage />}
             >
               {votation.title}

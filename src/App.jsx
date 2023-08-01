@@ -17,19 +17,13 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/votations" element={<Votations />} />
-        <Route
-          path="/votation/:id/messages"
-          element={<VotationMessage />}
-        />
+        <Route path="/votation/:id" element={<VotationMessage />} />
         <Route path="/votations/votation/map" element={<VotationMap />} />
         <Route path="/votations/votation/vote" element={<Vote />} />
         <Route path="/votations/form" element={<Votationform />} />
-        <Route
-          path="/votations/votation/messages/msgdetail"
-          element={<Msgdetail />}
-        />
+        <Route path="/votations/votation/messages/msgdetail" element={<Msgdetail />} />
         <Route path="/userinfo" element={<Userinfo />} />
-        <Route path="/profile/complete" element={<ProfileComplete />}/>
+        <Route path="/profile/complete" element={<ProfileComplete />} />
       </Routes>
     </>
   );

@@ -20,17 +20,17 @@ function useGetVotationDetails(id) {
         });
 
         for (const option in optionStatsObj) {
-          optionStatsObj[option].ratio = optionStatsObj[option].votes / votes?.length;
+          optionStatsObj[option].ratio = (optionStatsObj[option].votes / votes?.length) * 100;
         }
-        const { options } = votation;
-        options?.forEach((option) => {
-          option.stats = {
-            votes: optionStatsObj[option.title]?.votes,
-            ratio: optionStatsObj[option.title]?.ratio,
-          };
-        });
 
-        const sortedOptions = options?.sort((a, b) => b?.stats?.votes - a?.stats?.votes);
+        const { options } = votation;
+        for (const option of options) {
+          option.stats = {
+            votes: optionStatsObj[option.title.trim()]?.votes,
+            ratio: optionStatsObj[option.title.trim()]?.ratio,
+          };
+        }
+        const sortedOptions = options?.sort((a, b) => b.stats.votes - a.stats.votes);
 
         dispatch(setData({ votes, votation, sortedOptions }));
       })

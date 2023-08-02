@@ -9,7 +9,7 @@ import heart from "../../assets/heart.svg";
 const Msgdetail = () => {
   return (
     <div className={Gstyle.cont}>
-      <h1>Votation detail</h1>
+      <h1>Msg detail</h1>
       <Votebar />
       <Link className={Gstyle.Link} to="../votations/votation/messages">
         volver

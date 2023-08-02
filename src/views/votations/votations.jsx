@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import VotationMessage from "../votation/votationMessage";
+import VotationDetail from "../votation/votationDetail";
 import style from "./votations.module.css";
 import Gstyle from "./../../AppGlobal.module.css";
 import { Image } from "@chakra-ui/react";
@@ -20,8 +20,8 @@ const Votations = () => {
             <Link
               key={index}
               className={Gstyle.Link}
-              to={`/votation/${votation._id}`}
-              element={<VotationMessage />}
+              to={`/votations/${votation._id}`}
+              element={<VotationDetail />}
             >
               {votation.title}
             </Link>

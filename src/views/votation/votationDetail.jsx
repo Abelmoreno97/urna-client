@@ -9,7 +9,7 @@ import heart from "../../assets/heart.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useSelector } from "react-redux";
 
-const VotationMessage = () => {
+const VotationDetail = () => {
   const { id } = useParams();
   useGetVotationDetails(id);
 
@@ -31,7 +31,7 @@ const VotationMessage = () => {
               <div key={"voteMsg" + i} className={style.votecard}>
                 {vote?.comment}
                 <VStack>
-                  <Link to="../votations/votation/messages/msgdetail">
+                  <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image src={heart}></Image>
@@ -46,4 +46,4 @@ const VotationMessage = () => {
   );
 };
 
-export default VotationMessage;
+export default VotationDetail;

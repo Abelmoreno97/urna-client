@@ -3,9 +3,10 @@ import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Gstyle from "./../../AppGlobal.module.css";
 import Navbar from "../../components/navbar/navbar";
-import { Image, VStack } from "@chakra-ui/react";
+import { Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
+import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useSelector } from "react-redux";
 
@@ -25,13 +26,21 @@ const VotationDetail = () => {
       <div className={Gstyle.cont}>
         <h1>{votation?.title}</h1>
         <Votebar sortedOptions={sortedOptions} />
+        <Link className={Gstyle.Link} to={`/votations/${id}/vote`}>
+          <HStack>
+            <Image src={plus} />
+            <Text>VOTE</Text>{" "}
+          </HStack>
+        </Link>
         <div>
           <div className={style.votecont}>
             {votes?.map((vote, i) => (
               <div key={"voteMsg" + i} className={style.votecard}>
                 {vote?.comment}
                 <VStack>
-                  <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
+                  <Link
+                    to={`../votations/${votation._id}/messages/${vote._id}`}
+                  >
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image src={heart}></Image>
@@ -41,7 +50,9 @@ const VotationDetail = () => {
           </div>
         </div>
       </div>
-      <Navbar />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Navbar />
+      </div>
     </div>
   );
 };

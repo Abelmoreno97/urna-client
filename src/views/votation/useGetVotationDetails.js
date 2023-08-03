@@ -10,7 +10,7 @@ function useGetVotationDetails(id) {
     dispatch(setStatus("loading"));
     Votation.getDetails(id)
       .then((res) => {
-        const { votes, votation } = res.data;
+        const { votes, votation, alreadyVoted } = res.data;
         const optionStatsObj = {};
 
         votes?.forEach((vote) => {
@@ -32,7 +32,7 @@ function useGetVotationDetails(id) {
         }
         const sortedOptions = options?.sort((a, b) => b.stats.votes - a.stats.votes);
 
-        dispatch(setData({ votes, votation, sortedOptions }));
+        dispatch(setData({ votes, votation, sortedOptions, alreadyVoted }));
       })
       .catch((err) => {
         console.log(err);

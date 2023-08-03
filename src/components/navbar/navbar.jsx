@@ -13,6 +13,7 @@ const Navbar = () => {
       <Link className={style.Link} to="../votations/votation/messages">
         MESSAGES
       </Link>
+
       <Link className={style.Link} to="../votations/votation/map">
         MAP
       </Link>

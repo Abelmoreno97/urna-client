@@ -3,9 +3,10 @@ import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Gstyle from "./../../AppGlobal.module.css";
 import Navbar from "../../components/navbar/navbar";
-import { Image, VStack } from "@chakra-ui/react";
+import { Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
+import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useSelector } from "react-redux";
 import Like from "../../repositories/Like";
@@ -59,7 +60,9 @@ const VotationDetail = () => {
           </div>
         </div>
       </div>
-      <Navbar />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Navbar />
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@ import Vote from "./views/vote/vote";
 import Userinfo from "./views/userinfo/userinfo";
 import Votationform from "./views/votationform/votationform";
 import Msgdetail from "./views/msgdetail/msgdetail";
-import ProfileComplete from "./views/profilecomplete/profilecompelte";
+import ProfileComplete from "./views/profilecomplete/profilecomplete";
 
 function App() {
   const loc = useLocation();
@@ -22,7 +22,7 @@ function App() {
         <Route path="/votations/:id/vote" element={<Vote />} />
         <Route path="/votations/form" element={<Votationform />} />
         <Route
-          path="/votations/:votationId/messages/:voteId"
+          path="/votations/:votationId/messages/:vote Id"
           element={<Msgdetail />}
         />
         <Route path="/userinfo" element={<Userinfo />} />

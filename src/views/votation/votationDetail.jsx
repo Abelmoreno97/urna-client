@@ -25,6 +25,9 @@ const VotationDetail = () => {
       <div className={Gstyle.cont}>
         <h1>{votation?.title}</h1>
         <Votebar sortedOptions={sortedOptions} />
+        <Link className={style.Link} to={`/votations/${id}/vote`}>
+          Votar
+        </Link>
         <div>
           <div className={style.votecont}>
             {votes?.map((vote, i) => (

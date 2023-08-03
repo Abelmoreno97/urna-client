@@ -4,7 +4,6 @@ import { Image } from "@chakra-ui/react";
 import { cookie } from "../../utils";
 
 const Navbar = () => {
-  const { id } = useParams();
   const user = cookie.getObject("userData");
   return (
     <div className={style.navbar}>
@@ -13,9 +12,6 @@ const Navbar = () => {
       </Link>
       <Link className={style.Link} to="../votations/votation/messages">
         MESSAGES
-      </Link>
-      <Link className={style.Link} to={`/votations/${id}/vote`}>
-        VOTE
       </Link>
       <Link className={style.Link} to="../votations/votation/map">
         MAP

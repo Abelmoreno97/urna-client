@@ -8,20 +8,28 @@ import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
 import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Like from "../../repositories/Like";
+import { cookie } from "../../utils";
+import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
 
 const VotationDetail = () => {
   const { id } = useParams();
   useGetVotationDetails(id);
+  const { _id: user_id } = cookie.getObject("userData");
 
   const { data, error, status } = useSelector((state) => state.votationDetail);
   const { votation, votes, sortedOptions, alreadyVoted } = data;
 
+  const dispatch = useDispatch();
   const handleLike = (vote_id) => {
-    console.log({ vote_id });
     Like.sendVoteLike(vote_id).then((res) => {
-      console.log(res);
+      const { result } = res.data;
+      if (result === "like") {
+        dispatch(voteAddLike({ vote_id, user_id }));
+      } else {
+        dispatch(voteRemoveLike({ vote_id, user_id }));
+      }
     });
   };
 
@@ -50,7 +58,7 @@ const VotationDetail = () => {
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image
-                    src={heart}
+                    src={vote?.likes.includes(user_id) ? heart : plus}
                     cursor={"pointer"}
                     onClick={() => handleLike(vote._id)}
                   ></Image>

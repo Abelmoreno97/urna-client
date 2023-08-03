@@ -14,20 +14,23 @@ const VotationDetail = () => {
   useGetVotationDetails(id);
 
   const { data, error, status } = useSelector((state) => state.votationDetail);
-  const { votation, votes, sortedOptions } = data;
+  const { votation, votes, sortedOptions, alreadyVoted } = data;
 
   if (error) return <h2>Lo sentimos hubo un error </h2>;
-
   if (status === "loading") return <h2>Loading...</h2>;
-
   return (
     <div>
       <div className={Gstyle.cont}>
         <h1>{votation?.title}</h1>
         <Votebar sortedOptions={sortedOptions} />
-        <Link className={style.Link} to={`/votations/${id}/vote`}>
-          Votar
-        </Link>
+        {alreadyVoted ? (
+          <p>¡Su voto fué registrado, muchas gracias!</p>
+        ) : (
+          <Link className={style.Link} to={`/votations/${id}/vote`}>
+            Votar
+          </Link>
+        )}
+
         <div>
           <div className={style.votecont}>
             {votes?.map((vote, i) => (

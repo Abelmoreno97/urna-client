@@ -19,5 +19,16 @@ export default function useGetResponses() {
       });
     return () => setLoading(true);
   }, []);
-  return { data, error, loading };
+
+  const addOrRemoveLike = (user_id) => {
+    setData((prev) => {
+      if (prev.likes.includes(user_id)) {
+        return { ...prev, likes: prev.likes.filter((id) => id !== user_id) };
+      } else {
+        return { ...prev, likes: [...prev.likes, user_id] };
+      }
+    });
+  };
+
+  return { data, error, loading, addOrRemoveLike };
 }

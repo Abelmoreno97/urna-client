@@ -4,15 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import { Image, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
-import { useEffect, useState } from "react";
 import useGetResponses from "./useGetResponses";
-import { useSelector } from "react-redux";
 
 const Msgdetail = () => {
   const { data, error, loading } = useGetResponses();
+  console.log(data);
   if (error) return <h2>Lo siento hubo un error</h2>;
   if (loading) return <h2>Loading...</h2>;
-  console.log(data);
   return (
     <div>
       <div className={Gstyle.cont}>
@@ -48,9 +46,9 @@ const Msgdetail = () => {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "start" }}>
-      <Link className={Gstyle.Link} onClick={() => history.back()}>
-        ATRAS
-      </Link>
+        <Link className={Gstyle.Link} onClick={() => history.back()}>
+          ATRAS
+        </Link>
       </div>
     </div>
   );

@@ -21,10 +21,7 @@ function App() {
         <Route path="/votations/votation/map" element={<VotationMap />} />
         <Route path="/votations/:id/vote" element={<Vote />} />
         <Route path="/votations/form" element={<Votationform />} />
-        <Route
-          path="/votations/:votationId/messages/:vote Id"
-          element={<Msgdetail />}
-        />
+        <Route path="/votations/:votationId/messages/:voteId" element={<Msgdetail />} />
         <Route path="/userinfo" element={<Userinfo />} />
         <Route path="/profile/complete" element={<ProfileComplete />} />
       </Routes>

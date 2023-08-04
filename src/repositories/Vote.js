@@ -1,8 +1,8 @@
 const baseURL = "http://localhost:3001";
 export default {
-  getResponses: (id) =>
-    fetch(baseURL + "/responses/vote/" + id, { method: "GET", credentials: "include" }).then(
-      (res) => res.json()
+  getWithResponses: (id) =>
+    fetch(baseURL + "/votes/" + id, { method: "GET", credentials: "include" }).then((res) =>
+      res.json()
     ),
   create: (voteData) =>
     fetch(baseURL + "/votes", {

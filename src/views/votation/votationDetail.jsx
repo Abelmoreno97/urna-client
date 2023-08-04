@@ -48,22 +48,18 @@ const VotationDetail = () => {
       <div className={Gstyle.cont}>
         <h1>{votation?.title}</h1>
         <Votebar sortedOptions={sortedOptions} />
-        {openVotation(votation.closing_date) ? (
+        {!openVotation(votation.closing_date.slice(0, 10)) ? (
           <p>La votacion cierra el {formatDate(votation.closing_date)}</p>
         ) : (
           <p>La votacion ha finalizado</p>
         )}
         {alreadyVoted ? (
           <p>¡Su voto fué registrado, muchas gracias!</p>
-        ) : (
-          <Link
-            className={style.Link}
-            to={`/votations/${id}/vote`}
-            isDisable={!openVotation(votation.closing_date)}
-          >
+        ) : !openVotation(votation.closing_date.slice(0, 10)) ? (
+          <Link className={style.Link} to={`/votations/${id}/vote`}>
             Votar
           </Link>
-        )}
+        ) : null}
 
         <div>
           <div className={style.votecont}>

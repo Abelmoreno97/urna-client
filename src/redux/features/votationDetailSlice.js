@@ -22,7 +22,7 @@ export const votationDetailSlice = createSlice({
     },
     voteAddLike(state, action) {
       const { vote_id, user_id } = action.payload;
-      state.data.votes = state.data.votes.map((vote) => {
+      state.data.votes = state.data.votes?.map((vote) => {
         if (vote._id === vote_id) {
           vote.likes = [...vote.likes, user_id];
         }
@@ -31,7 +31,7 @@ export const votationDetailSlice = createSlice({
     },
     voteRemoveLike(state, action) {
       const { vote_id, user_id } = action.payload;
-      state.data.votes = state.data.votes.map((vote) => {
+      state.data.votes = state.data.votes?.map((vote) => {
         if (vote._id === vote_id) {
           vote.likes = vote.likes.filter((like) => like !== user_id);
         }

@@ -18,8 +18,12 @@ import VotationOption from "../../components/votationOption/votationOption";
 import { BACKEND_BASE_URL } from "../../config/envs";
 import { formValidator } from "./validations/formValidator";
 import useTitleValidator from "./validations/useTitleValidator";
+import Votation from "../../repositories/Votation";
+import { useNavigate } from "react-router-dom";
 
 const Votationform = () => {
+  const navigate = useNavigate();
+
   const [optionsData, setOptionsData] = useState([
     { title: "", images: [] },
     { title: "", images: [] },
@@ -79,15 +83,11 @@ const Votationform = () => {
       { title: "", images: [] },
     ]);
     setForm({ title: "", description: "", opening_date: "", closing_date: "" });
-    fetch(`${BACKEND_BASE_URL}/voting`, {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      });
+    Votation.postVotation(formData).then((res) => {
+      console.log(res);
+      alert("Su solicitud fue enviada con exito!");
+      navigate("/votations");
+    });
   };
   console.log(errors);
 
@@ -95,37 +95,37 @@ const Votationform = () => {
     <div className={Gstyle.cont}>
       <h1>Votationform</h1>
       <div className={style.inputCont}>
-      <Input
-        required
-        placeholder="Titulo de la votacion"
-        name="title"
-        onChange={handleChange}
-      />
-      <Input
-        required
-        placeholder="fecha de inicio"
-        name="opening_date"
-        type="datetime-local"
-        onChange={handleChange}
-      />
-      <Input
-        required
-        placeholder="fecha de finalizacion"
-        name="closing_date"
-        type="datetime-local"
-        onChange={handleChange}
-      />
+        <Input
+          required
+          placeholder="Titulo de la votacion"
+          name="title"
+          onChange={handleChange}
+        />
+        <Input
+          required
+          placeholder="fecha de inicio"
+          name="opening_date"
+          type="datetime-local"
+          onChange={handleChange}
+        />
+        <Input
+          required
+          placeholder="fecha de finalizacion"
+          name="closing_date"
+          type="datetime-local"
+          onChange={handleChange}
+        />
       </div>
       <div
         className={style.options}
         // style={{
-          //   width: "400px",
+        //   width: "400px",
         //   display: "flex",
         //   flexDirection: "column",
         //   alignItems: "start",
         // }}
       >
-          <h1>INGRESAR OPCIONES</h1> <br />
+        <h1>INGRESAR OPCIONES</h1> <br />
         {optionsData.map((option, index) => (
           <VotationOption
             key={index}
@@ -136,9 +136,9 @@ const Votationform = () => {
             setErrors={setErrors}
           />
         ))}
-      <HStack>
-        <Button onClick={addOption}>Añadir</Button>
-      </HStack>
+        <HStack>
+          <Button onClick={addOption}>Añadir</Button>
+        </HStack>
       </div>
 
       <div className={style.inputCont}>

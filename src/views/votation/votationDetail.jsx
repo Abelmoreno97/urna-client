@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Gstyle from "./../../AppGlobal.module.css";
@@ -16,7 +16,11 @@ import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetail
 const VotationDetail = () => {
   const { id } = useParams();
   useGetVotationDetails(id);
-  const { _id: user_id } = cookie.getObject("userData");
+  const navigate = useNavigate();
+
+  const userData = cookie.getObject("userData");
+  if (!userData) navigate("/");
+  const { _id: user_id } = userData;
 
   const { data, error, status } = useSelector((state) => state.votationDetail);
   const { votation, votes, sortedOptions, alreadyVoted } = data;

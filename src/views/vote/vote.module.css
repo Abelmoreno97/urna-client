@@ -1,0 +1,42 @@
+.loading_modal{
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.725);
+  backdrop-filter: blur(10px);
+  display: none;
+  place-content: center;
+  z-index: 100;
+}
+.loading_span{
+  display: block;
+  white-space: nowrap;
+  width: 15ch;
+  animation: typing 1s steps(4) infinite;
+  overflow: hidden;
+  font-size: 5rem;
+}
+@keyframes typing {
+  from{
+    width: 8ch;
+  }
+  to{
+    width: 100%
+  }
+}
+
+.success_container{
+  display: none;
+  overflow: hidden;
+  position: absolute;
+  height: 20vh;
+  top: 30%;
+  background: #292929;
+}
+.success_text{
+  margin: auto;
+  color: rgb(62, 222, 62);
+}

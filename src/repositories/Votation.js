@@ -6,4 +6,6 @@ export default {
     fetch(baseURL + "/voting/" + id, { method: "GET", credentials: "include" }).then((res) =>
       res.json()
     ),
+  postVotation: (formData) => fetch(baseURL + "/voting", {method: "POST", body: formData,credentials: "include",
+  }).then((res) => res.json())
 };

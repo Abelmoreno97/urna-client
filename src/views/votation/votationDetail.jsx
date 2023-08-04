@@ -62,6 +62,7 @@ const VotationDetail = () => {
                     cursor={"pointer"}
                     onClick={() => handleLike(vote._id)}
                   ></Image>
+                  <Text>{vote?.likes.length} likes</Text>
                 </VStack>
               </div>
             ))}

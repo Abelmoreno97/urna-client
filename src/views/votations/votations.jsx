@@ -4,6 +4,7 @@ import style from "./votations.module.css";
 import Gstyle from "./../../AppGlobal.module.css";
 import { Image } from "@chakra-ui/react";
 import { useGetVotations } from "./useGetVotations";
+import { formatDate } from "../../utils/date";
 
 const Votations = () => {
   const { data, status, error } = useGetVotations();
@@ -17,14 +18,20 @@ const Votations = () => {
         <br />
         <div className={style.mapcont}>
           {data.map((votation, index) => (
-            <Link
-              key={index}
-              className={Gstyle.Link}
-              to={`/votations/${votation._id}`}
-              element={<VotationDetail />}
-            >
-              {votation.title}
-            </Link>
+            <div>
+              <Link
+                key={index}
+                className={Gstyle.Link}
+                to={`/votations/${votation._id}`}
+                element={<VotationDetail />}
+              >
+                {votation.title}
+              </Link>
+              <p>
+                Apertura: {formatDate(votation.opening_date)} Cierre:{" "}
+                {formatDate(votation.closing_date)}
+              </p>
+            </div>
           ))}
         </div>
         <br />

@@ -2,8 +2,10 @@ import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Navbar from "../../components/navbar/navbar";
 import Gstyle from "./../../AppGlobal.module.css";
+import { useParams } from "react-router";
 
 const VotationMap = () => {
+  const { votationId } = useParams();
   return (
     <div>
       <div className={Gstyle.cont}>
@@ -19,7 +21,7 @@ const VotationMap = () => {
           </div>
         </div>
       </div>
-      <Navbar />
+      <Navbar votationId={votationId} />
     </div>
   );
 };

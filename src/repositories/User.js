@@ -1,7 +1,8 @@
-const baseURL = "http://localhost:3001";
+import {BACKEND_BASE_URL} from "./../config/envs";
+
 export default {
   postUser: (profileInfo) =>
-    fetch(baseURL + "/users", {
+    fetch(BACKEND_BASE_URL + "/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ profileInfo }),

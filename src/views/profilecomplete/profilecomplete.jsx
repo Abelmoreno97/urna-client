@@ -2,9 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import {
   Input,
   Button,
-  Stack,
-  Radio,
-  RadioGroup,
   FormControl,
   FormLabel,
   Select,
@@ -19,6 +16,7 @@ import {
 import { cookie } from "../../utils";
 // import { Redirect } from "react-router-dom";
 import User from "../../repositories/User";
+import Region from "../../repositories/Region";
 import { useNavigate } from "react-router-dom";
 
 const ProfileComplete = () => {
@@ -35,8 +33,7 @@ const ProfileComplete = () => {
   const cancelRef = useRef();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:3001/regions")
-      .then((res) => res.json())
+    Region.getAll()
       .then((res) => setRegions(res.data))
       .catch((err) => console.log(err));
 

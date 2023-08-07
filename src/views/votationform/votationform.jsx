@@ -15,11 +15,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import VotationOption from "../../components/votationOption/votationOption";
-import { BACKEND_BASE_URL } from "../../config/envs";
 import { formValidator } from "./validations/formValidator";
 import useTitleValidator from "./validations/useTitleValidator";
 import Votation from "../../repositories/Votation";
 import { useNavigate } from "react-router-dom";
+import PageLayout from "../../layout/PageLayout/PageLayout";
 
 const Votationform = () => {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const Votationform = () => {
   console.log(errors);
 
   return (
-    <div className={Gstyle.cont}>
+    <PageLayout>
       <h1>Votationform</h1>
       <div className={style.inputCont}>
         <Input
@@ -191,7 +191,7 @@ const Votationform = () => {
       <button className={Gstyle.Link} onClick={() => history.back()}>
         ATRAS
       </button>
-    </div>
+    </PageLayout>
   );
 };
 

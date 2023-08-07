@@ -5,6 +5,7 @@ import Gstyle from "./../../AppGlobal.module.css";
 import { Image } from "@chakra-ui/react";
 import { useGetVotations } from "./useGetVotations";
 import { formatDate } from "../../utils/date";
+import PageLayout from "../../layout/PageLayout/PageLayout";
 
 const Votations = () => {
   const { data, status, error } = useGetVotations();
@@ -13,14 +14,13 @@ const Votations = () => {
   if (data.length == 0) return <h2>No hay votaciones activas</h2>;
   return (
     <div>
-      <div className={Gstyle.cont}>
+      <PageLayout>
         <h1>Votations active</h1>
         <br />
         <div className={style.mapcont}>
-          {data.map((votation, index) => (
-            <div>
+          {data.map((votation, i) => (
+            <div key={i}>
               <Link
-                key={index}
                 className={Gstyle.Link}
                 to={`/votations/${votation._id}`}
                 element={<VotationDetail />}
@@ -39,7 +39,7 @@ const Votations = () => {
         <Link className={Gstyle.Link} to="/votations/form">
           solicitar votacion
         </Link>
-      </div>
+      </PageLayout>
       <div
         style={{
           display: "flex",

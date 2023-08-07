@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import VoteRepository from "../../repositories/Vote";
+import PageLayout from "../../layout/PageLayout/PageLayout";
 
 const Vote = () => {
   const [selection, setSelection] = useState();
@@ -42,7 +43,7 @@ const Vote = () => {
   };
 
   return (
-    <div className={Gstyle.cont}>
+    <PageLayout>
       <div ref={loadingModal} className={style.loading_modal}>
         <p className={style.loading_span}>Cargando....</p>
       </div>
@@ -91,7 +92,7 @@ const Vote = () => {
       <button className={Gstyle.Link} onClick={() => history.back()}>
         ATRAS
       </button>
-    </div>
+    </PageLayout>
   );
 };
 

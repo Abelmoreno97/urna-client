@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./navbar.module.css";
 import { Image } from "@chakra-ui/react";
 import { cookie } from "../../utils";

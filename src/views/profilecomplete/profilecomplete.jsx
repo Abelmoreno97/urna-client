@@ -18,6 +18,7 @@ import { cookie } from "../../utils";
 import User from "../../repositories/User";
 import Region from "../../repositories/Region";
 import { useNavigate } from "react-router-dom";
+import PageLayout from "../../layout/PageLayout/PageLayout";
 
 const ProfileComplete = () => {
   const [status, setStatus] = useState("");
@@ -71,7 +72,7 @@ const ProfileComplete = () => {
     return <h2>Loading....</h2>;
   }
   return (
-    <div>
+    <PageLayout>
       <h1>UserComplete</h1>
       <form onSubmit={handleSubmit}>
         {/* <RadioGroup onChange={(e) => handleChange({ target: { name: "avatar", value: e } })}>
@@ -140,7 +141,7 @@ const ProfileComplete = () => {
           </AlertDialog>
         </>
       </form>
-    </div>
+    </PageLayout>
   );
 };
 

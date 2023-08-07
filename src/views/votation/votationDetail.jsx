@@ -28,7 +28,6 @@ const VotationDetail = () => {
 
   const { data, error, status } = useSelector((state) => state.votationDetail);
   const { votation, votes, sortedOptions, alreadyVoted } = data;
-
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
     Like.sendVoteLike(vote_id).then((res) => {
@@ -65,7 +64,13 @@ const VotationDetail = () => {
           <div className={style.votecont}>
             {votes?.map((vote, i) => (
               <div key={"voteMsg" + i} className={style.votecard}>
-                {vote?.comment}
+                <VStack>
+                  <p>
+                    {vote?.user_id?.username} votó a {vote?.option_title}
+                  </p>
+                  <p>{vote?.comment}</p>
+                </VStack>
+
                 <VStack>
                   <Link
                     to={`../votations/${votation._id}/messages/${vote._id}`}
@@ -85,7 +90,7 @@ const VotationDetail = () => {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Navbar />
+        <Navbar votationId={votation._id} />
       </div>
     </div>
   );

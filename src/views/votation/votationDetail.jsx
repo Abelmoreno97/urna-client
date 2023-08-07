@@ -11,7 +11,11 @@ import useGetVotationDetails from "./useGetVotationDetails";
 import { useDispatch, useSelector } from "react-redux";
 import Like from "../../repositories/Like";
 import { cookie } from "../../utils";
-import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
+import {
+  voteAddLike,
+  voteRemoveLike,
+} from "../../redux/features/votationDetailSlice";
+import { formatDate, openVotation } from "../../utils/date.js";
 
 const VotationDetail = () => {
   const { id } = useParams();
@@ -44,13 +48,18 @@ const VotationDetail = () => {
       <div className={Gstyle.cont}>
         <h1>{votation?.title}</h1>
         <Votebar sortedOptions={sortedOptions} />
+        {!openVotation(votation.closing_date.slice(0, 10)) ? (
+          <p>La votacion cierra el {formatDate(votation.closing_date)}</p>
+        ) : (
+          <p>La votacion ha finalizado</p>
+        )}
         {alreadyVoted ? (
           <p>¡Su voto fué registrado, muchas gracias!</p>
-        ) : (
+        ) : !openVotation(votation.closing_date.slice(0, 10)) ? (
           <Link className={style.Link} to={`/votations/${id}/vote`}>
             Votar
           </Link>
-        )}
+        ) : null}
 
         <div>
           <div className={style.votecont}>
@@ -58,7 +67,9 @@ const VotationDetail = () => {
               <div key={"voteMsg" + i} className={style.votecard}>
                 {vote?.comment}
                 <VStack>
-                  <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
+                  <Link
+                    to={`../votations/${votation._id}/messages/${vote._id}`}
+                  >
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image

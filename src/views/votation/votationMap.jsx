@@ -21,7 +21,6 @@ const VotationMap = () => {
             ></img>
           </div>
         </div>
-      </div>
       </PageLayout>
       <Navbar votationId={votationId} />
     </div>

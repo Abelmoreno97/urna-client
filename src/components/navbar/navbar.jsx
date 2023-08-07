@@ -3,20 +3,24 @@ import style from "./navbar.module.css";
 import { Image } from "@chakra-ui/react";
 import { cookie } from "../../utils";
 
-const Navbar = () => {
+const Navbar = ({ votationId }) => {
   const user = cookie.getObject("userData");
   return (
     <div className={style.navbar}>
       <Link className={style.Link} to="/votations">
         VOTATIONS
       </Link>
-      <Link className={style.Link} to="../votations/votation/messages">
-        MESSAGES
-      </Link>
+      {window.location.pathname === `/votations/${votationId}` && (
+        <Link className={style.Link} to={`/votations/${votationId}/map`}>
+          MAP
+        </Link>
+      )}
+      {window.location.pathname === `/votations/${votationId}/map` && (
+        <Link className={style.Link} to={`/votations/${votationId}`}>
+          VOLVER
+        </Link>
+      )}
 
-      <Link className={style.Link} to="../votations/votation/map">
-        MAP
-      </Link>
       <Link className={style.Link} to="/userinfo">
         {" "}
         <Image

@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import { useRef } from "react";
 import {
   Button,
   AlertDialog,
@@ -9,14 +9,19 @@ import {
   AlertDialogOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-const LOGOUT_URL = import.meta.env.VITE_API_LOGOUT_URL;
+import { useNavigate } from "react-router-dom";
+import User from "../../repositories/User";
 
 function AlertDialogExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
-
+  const navigate = useNavigate();
   const logout = () => {
-    location.href(LOGOUT_URL);
+    User.logout()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <>

@@ -8,7 +8,7 @@ export default {
       body: JSON.stringify({ profileInfo }),
     }).then((res) => res.json()),
   logout: () =>
-    fetch(baseURL + "/auth/logout", {
+    fetch(BACKEND_BASE_URL + "/auth/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

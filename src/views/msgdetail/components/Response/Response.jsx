@@ -13,6 +13,15 @@ function Response({ response }) {
         padding: "5px",
       }}
     >
+      <img
+        src={response.emitter_id.avatar}
+        alt="avatar"
+        width="40px"
+        height="40px"
+        style={{ borderRadius: "50%" }}
+      />
+      <Text>{response.emitter_id.username}</Text>
+      <Text maxWidth="calc(100% - 40px)">@{response.receiver_id.username}</Text>
       <Text maxWidth="calc(100% - 40px)">{response.body}</Text>
 
       <Image src={heart} sx={{ position: "absolute", right: "4px", bottom: "4px" }} />

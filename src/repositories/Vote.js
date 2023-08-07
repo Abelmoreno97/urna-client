@@ -1,11 +1,12 @@
-const baseURL = "http://localhost:3001";
+import { BACKEND_BASE_URL } from "../config/envs";
+
 export default {
   getWithResponses: (id) =>
-    fetch(baseURL + "/votes/" + id, { method: "GET", credentials: "include" }).then((res) =>
+    fetch(BACKEND_BASE_URL + "/votes/" + id, { method: "GET", credentials: "include" }).then((res) =>
       res.json()
     ),
   create: (voteData) =>
-    fetch(baseURL + "/votes", {
+    fetch(BACKEND_BASE_URL + "/votes", {
       method: "POST",
       credentials: "include",
       body: JSON.stringify({ voteData }),

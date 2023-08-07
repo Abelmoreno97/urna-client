@@ -16,6 +16,7 @@ import {
   voteRemoveLike,
 } from "../../redux/features/votationDetailSlice";
 import { formatDate, openVotation } from "../../utils/date.js";
+import PageLayout from "../../layout/PageLayout/PageLayout";
 
 const VotationDetail = () => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ const VotationDetail = () => {
   if (status === "loading") return <h2>Loading...</h2>;
   return (
     <div>
-      <div className={Gstyle.cont}>
+      <PageLayout>
         <h1>{votation?.title}</h1>
         <Votebar sortedOptions={sortedOptions} />
         {!openVotation(votation.closing_date.slice(0, 10)) ? (
@@ -83,7 +84,7 @@ const VotationDetail = () => {
             ))}
           </div>
         </div>
-      </div>
+      </PageLayout>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Navbar />
       </div>

@@ -4,10 +4,10 @@ function PageLayout({ children }) {
   return (
     <Container
       sx={{
-        minHeight: "100vh",
-        width: "100vw",
+        minHeight: "90vh",
+        width: "500px",
         padding: "30px",
-        backgroundColor: "darkslategray",
+        backgroundColor: "#2D3748",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

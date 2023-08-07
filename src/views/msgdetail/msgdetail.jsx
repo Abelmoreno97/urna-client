@@ -1,6 +1,6 @@
 import Gstyle from "./../../AppGlobal.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Image, Input, Text, Textarea, VStack } from "@chakra-ui/react";
 import heart from "../../assets/heart.svg";
 import r_heart from "../../assets/r-heart.svg";
 import useGetResponses from "./useGetResponses";
@@ -10,6 +10,8 @@ import { cookie } from "../../utils";
 import { useDispatch } from "react-redux";
 import Like from "../../repositories/Like";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
+import { useState } from "react";
+import Response from "../../repositories/Response";
 
 const Msgdetail = () => {
   const userData = cookie.getObject("userData");
@@ -17,25 +19,7 @@ const Msgdetail = () => {
   if (!userData) navigate("/");
   const { _id: user_id } = userData;
 
-  const { data, error, loading, addOrRemoveLike } = useGetResponses();
-  const exampleResponses = [
-    {
-      _id: "asdsad",
-      emitter_id: "u342343",
-      receiver_id: "sdagjsdflgjsdj3",
-      body: "Comentario de la respuesta1",
-      pinned: false,
-      created_at: "2021-08-20T16:48:48.891Z",
-    },
-    {
-      _id: "asdsad",
-      emitter_id: "u342343",
-      receiver_id: "sdagjsdflgjsdj3",
-      body: "Comentario de la respuesta2",
-      pinned: false,
-      created_at: "2021-08-20T17:48:48.891Z",
-    },
-  ];
+  const { data: vote, error, loading, addOrRemoveLike } = useGetResponses();
 
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
@@ -50,7 +34,22 @@ const Msgdetail = () => {
     });
   };
 
-  console.log(data);
+  const [commentInp, setCommentInp] = useState("");
+  const handleCommentInp = (e) => {
+    const { value } = e.target;
+    setCommentInp(value);
+  };
+  const submitComment = ({ receiver_id, body }) => {
+    const responseData = {
+      vote_id: vote._id,
+      receiver_id,
+      body,
+    };
+    Response.send(responseData).then((res) => {
+      console.log(res);
+    });
+  };
+
   if (error) return <h2>Lo siento hubo un error</h2>;
   if (loading) return <h2>Loading...</h2>;
   return (
@@ -75,28 +74,53 @@ const Msgdetail = () => {
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "end",
+            minH: "75vh",
           }}
         >
           <Box
             sx={{
-              display: "flex",
+              position: "relative",
               width: "100%",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
             }}
           >
-            <Text>{data.comment}</Text>
+            <Text width="100%" fontWeight="600">
+              {vote?.user_id?.username}
+            </Text>
+            <Text>{vote?.comment}</Text>
             <Image
-              src={data.likes.includes(user_id) ? r_heart : heart}
-              mr="4px"
-              cursor="pointer"
-              onClick={() => handleLike(data._id)}
+              src={vote?.likes.includes(user_id) ? r_heart : heart}
+              sx={{
+                position: "absolute",
+                right: "4px",
+                bottom: "4px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleLike(vote?._id)}
             />
           </Box>
-          <ResponsesList responsesArray={exampleResponses} />
+          <ResponsesList responsesArray={vote?.responses} />
         </Box>
+
+        <Textarea
+          sx={{}}
+          placeholder="Agrega un comentario..."
+          value={commentInp}
+          onChange={handleCommentInp}
+        />
+        <Button
+          sx={{
+            alignSelf: "flex-end",
+            bgColor: "lightblue",
+            _hover: { boxShadow: "2px 2px 3px black" },
+            _active: { boxShadow: "inset 2px 2px 3px black" },
+          }}
+          onClick={() => {
+            submitComment({ receiver_id: vote.user_id._id, body: commentInp });
+            setCommentInp("");
+          }}
+        >
+          Enviar
+        </Button>
       </Box>
 
       <div style={{ display: "flex", justifyContent: "start" }}>

@@ -1,21 +1,17 @@
-import { Container } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 function PageLayout({ children }) {
   return (
-    <Container
-      sx={{
-        minHeight: "90vh",
-        width: "500px",
-        padding: "30px",
-        backgroundColor: "#2D3748",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
+    <VStack
+      alignItems={"center"}
+      justify={"space-between"}
+      bg={"#2D3748"}
+      p={"30px"}
+      w={["400px","500px","700px","900px","900px"]}
+      h={"700px"}
     >
       {children}
-    </Container>
+    </VStack>
   );
 }
 

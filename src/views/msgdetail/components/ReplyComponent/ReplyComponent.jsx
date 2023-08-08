@@ -6,10 +6,12 @@ function ReplyComponent({ containerRef, vote_id, receiver_id }) {
   const [responseInp, setResponseInp] = useState("");
   const handleChangeResponseInp = (e) => {
     const { value } = e.target;
-    setResponseInp(value);
+    if (value.length < 255) setResponseInp(value);
   };
 
   const handleSubmitResponse = () => {
+    if (responseInp.length == 0) return;
+
     const responseData = {
       vote_id,
       receiver_id,
@@ -65,7 +67,9 @@ function ReplyComponent({ containerRef, vote_id, receiver_id }) {
             w: "min-content",
             borderRadius: "34px",
             bg: "none",
-            _hover: { bg: "rgba(255,255,255,.5)" },
+            cursor: !responseInp && "auto",
+            _hover: { bg: responseInp && "rgba(255,255,255,.5)" },
+            _active: { bg: responseInp && "rgba(255,255,255,.5)" },
           }}
           onClick={handleSubmitResponse}
         >

@@ -1,6 +1,6 @@
 import Gstyle from "./../../AppGlobal.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Image, Input, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, Image, Input, Text, Textarea, VStack } from "@chakra-ui/react";
 import heart from "../../assets/heart.svg";
 import r_heart from "../../assets/r-heart.svg";
 import useGetResponses from "./useGetResponses";
@@ -10,7 +10,7 @@ import { cookie } from "../../utils";
 import { useDispatch } from "react-redux";
 import Like from "../../repositories/Like";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Response from "../../repositories/Response";
 
 const Msgdetail = () => {
@@ -45,9 +45,15 @@ const Msgdetail = () => {
       receiver_id,
       body,
     };
+    setCommentInp("");
     Response.send(responseData).then((res) => {
       console.log(res);
     });
+  };
+
+  const inputResponse = useRef(null);
+  const showInputResponse = () => {
+    inputResponse.current.style.height = "100px";
   };
 
   if (error) return <h2>Lo siento hubo un error</h2>;
@@ -98,29 +104,72 @@ const Msgdetail = () => {
               onClick={() => handleLike(vote?._id)}
             />
           </Box>
-          <ResponsesList responsesArray={vote?.responses} />
+          <Button
+            sx={{
+              border: "none",
+              padding: "3px 10px",
+              h: "25px",
+              w: "min-content",
+              borderRadius: "34px",
+              bg: "none",
+              _hover: { bg: "rgba(255,255,255,.5)" },
+            }}
+            onClick={showInputResponse}
+          >
+            Responder
+          </Button>
+          <VStack
+            ref={inputResponse}
+            width="100%"
+            sx={{
+              overflow: "hidden",
+              height: "0px",
+              transition: "all 0.3s ease-in-out",
+            }}
+          >
+            <Textarea
+              placeholder="Agrega un comentario..."
+              value={commentInp}
+              onChange={handleCommentInp}
+              rows={1}
+            />
+            <HStack w={"100%"} justifyContent="end">
+              <Button
+                sx={{
+                  border: "none",
+                  padding: "3px 10px",
+                  h: "25px",
+                  w: "min-content",
+                  borderRadius: "34px",
+                  bg: "none",
+                  _hover: { bg: "rgba(255,255,255,.5)" },
+                }}
+                onClick={() => {
+                  alert("crear cancel");
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                sx={{
+                  border: "none",
+                  padding: "3px 10px",
+                  h: "25px",
+                  w: "min-content",
+                  borderRadius: "34px",
+                  bg: "none",
+                  _hover: { bg: "rgba(255,255,255,.5)" },
+                }}
+                onClick={() => {
+                  submitComment({ receiver_id: vote.user_id._id, body: commentInp });
+                }}
+              >
+                Responder
+              </Button>
+            </HStack>
+          </VStack>
+          <ResponsesList responsesArray={vote?.responses} vote_id={vote._id} />
         </Box>
-
-        <Textarea
-          sx={{}}
-          placeholder="Agrega un comentario..."
-          value={commentInp}
-          onChange={handleCommentInp}
-        />
-        <Button
-          sx={{
-            alignSelf: "flex-end",
-            bgColor: "lightblue",
-            _hover: { boxShadow: "2px 2px 3px black" },
-            _active: { boxShadow: "inset 2px 2px 3px black" },
-          }}
-          onClick={() => {
-            submitComment({ receiver_id: vote.user_id._id, body: commentInp });
-            setCommentInp("");
-          }}
-        >
-          Enviar
-        </Button>
       </Box>
 
       <div style={{ display: "flex", justifyContent: "start" }}>

@@ -6,7 +6,7 @@ export default function useGetResponses() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const { voteId } = useParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     Vote.getWithResponses(voteId)

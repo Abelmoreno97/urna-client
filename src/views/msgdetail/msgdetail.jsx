@@ -1,6 +1,6 @@
 import Gstyle from "./../../AppGlobal.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, HStack, Image, Input, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
 import heart from "../../assets/heart.svg";
 import r_heart from "../../assets/r-heart.svg";
 import useGetResponses from "./useGetResponses";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import Like from "../../repositories/Like";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
 import { useRef, useState } from "react";
-import Response from "../../repositories/Response";
+import ReplyComponent from "./components/ReplyComponent/ReplyComponent";
 
 const Msgdetail = () => {
   const userData = cookie.getObject("userData");
@@ -34,26 +34,9 @@ const Msgdetail = () => {
     });
   };
 
-  const [commentInp, setCommentInp] = useState("");
-  const handleCommentInp = (e) => {
-    const { value } = e.target;
-    setCommentInp(value);
-  };
-  const submitComment = ({ receiver_id, body }) => {
-    const responseData = {
-      vote_id: vote._id,
-      receiver_id,
-      body,
-    };
-    setCommentInp("");
-    Response.send(responseData).then((res) => {
-      console.log(res);
-    });
-  };
-
-  const inputResponse = useRef(null);
-  const showInputResponse = () => {
-    inputResponse.current.style.height = "100px";
+  const replyRef = useRef(null);
+  const openReplyComponent = () => {
+    replyRef.current.style.height = "100px";
   };
 
   if (error) return <h2>Lo siento hubo un error</h2>;
@@ -114,60 +97,15 @@ const Msgdetail = () => {
               bg: "none",
               _hover: { bg: "rgba(255,255,255,.5)" },
             }}
-            onClick={showInputResponse}
+            onClick={openReplyComponent}
           >
             Responder
           </Button>
-          <VStack
-            ref={inputResponse}
-            width="100%"
-            sx={{
-              overflow: "hidden",
-              height: "0px",
-              transition: "all 0.3s ease-in-out",
-            }}
-          >
-            <Textarea
-              placeholder="Agrega un comentario..."
-              value={commentInp}
-              onChange={handleCommentInp}
-              rows={1}
-            />
-            <HStack w={"100%"} justifyContent="end">
-              <Button
-                sx={{
-                  border: "none",
-                  padding: "3px 10px",
-                  h: "25px",
-                  w: "min-content",
-                  borderRadius: "34px",
-                  bg: "none",
-                  _hover: { bg: "rgba(255,255,255,.5)" },
-                }}
-                onClick={() => {
-                  alert("crear cancel");
-                }}
-              >
-                Cancelar
-              </Button>
-              <Button
-                sx={{
-                  border: "none",
-                  padding: "3px 10px",
-                  h: "25px",
-                  w: "min-content",
-                  borderRadius: "34px",
-                  bg: "none",
-                  _hover: { bg: "rgba(255,255,255,.5)" },
-                }}
-                onClick={() => {
-                  submitComment({ receiver_id: vote.user_id._id, body: commentInp });
-                }}
-              >
-                Responder
-              </Button>
-            </HStack>
-          </VStack>
+          <ReplyComponent
+            vote_id={vote?._id}
+            receiver_id={vote?.user_id?._id}
+            containerRef={replyRef}
+          />
           <ResponsesList responsesArray={vote?.responses} vote_id={vote._id} />
         </Box>
       </Box>

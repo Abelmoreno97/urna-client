@@ -2,9 +2,11 @@ import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Navbar from "../../components/navbar/navbar";
 import Gstyle from "./../../AppGlobal.module.css";
+import { useParams } from "react-router";
 import PageLayout from "../../layout/PageLayout/PageLayout";
 
 const VotationMap = () => {
+  const { votationId } = useParams();
   return (
     <div>
       <PageLayout>
@@ -20,7 +22,7 @@ const VotationMap = () => {
           </div>
         </div>
       </PageLayout>
-      <Navbar />
+      <Navbar votationId={votationId} />
     </div>
   );
 };

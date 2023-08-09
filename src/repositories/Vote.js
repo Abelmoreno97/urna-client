@@ -2,8 +2,8 @@ import { BACKEND_BASE_URL } from "../config/envs";
 
 export default {
   getWithResponses: (id) =>
-    fetch(BACKEND_BASE_URL + "/votes/" + id, { method: "GET", credentials: "include" }).then((res) =>
-      res.json()
+    fetch(BACKEND_BASE_URL + "/votes/" + id, { method: "GET", credentials: "include" }).then(
+      (res) => res.json()
     ),
   create: (voteData) =>
     fetch(BACKEND_BASE_URL + "/votes", {
@@ -11,5 +11,13 @@ export default {
       credentials: "include",
       body: JSON.stringify({ voteData }),
       headers: { "Content-Type": "application/json" },
+    }).then((res) => res.json()),
+  sendLike: (vote_id) =>
+    fetch(`${BACKEND_BASE_URL}/votes/${vote_id}/likes`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
     }).then((res) => res.json()),
 };

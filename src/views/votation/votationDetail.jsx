@@ -1,22 +1,18 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
-import Gstyle from "./../../AppGlobal.module.css";
 import Navbar from "../../components/navbar/navbar";
-import { Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Image, Text, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
 import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useDispatch, useSelector } from "react-redux";
-import Like from "../../repositories/Like";
 import { cookie } from "../../utils";
-import {
-  voteAddLike,
-  voteRemoveLike,
-} from "../../redux/features/votationDetailSlice";
+import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
 import { formatDate, openVotation } from "../../utils/date.js";
 import PageLayout from "../../layout/PageLayout/PageLayout";
+import Vote from "../../repositories/Vote";
 
 const VotationDetail = () => {
   const { id } = useParams();
@@ -31,7 +27,7 @@ const VotationDetail = () => {
   const { votation, votes, sortedOptions, alreadyVoted } = data;
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
-    Like.sendVoteLike(vote_id).then((res) => {
+    Vote.sendLike(vote_id).then((res) => {
       const { result } = res.data;
       if (result === "like") {
         dispatch(voteAddLike({ vote_id, user_id }));
@@ -73,9 +69,7 @@ const VotationDetail = () => {
                 </VStack>
 
                 <VStack>
-                  <Link
-                    to={`../votations/${votation._id}/messages/${vote._id}`}
-                  >
+                  <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image

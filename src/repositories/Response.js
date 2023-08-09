@@ -9,4 +9,12 @@ export default {
       body: JSON.stringify({ responseData }),
       credentials: "include",
     }).then((res) => res.json()),
+  sendLike: (response_id) =>
+    fetch(`${BACKEND_BASE_URL}/responses/${response_id}/likes`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then((res) => res.json()),
 };

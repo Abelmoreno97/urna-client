@@ -8,10 +8,10 @@ import ResponsesList from "./components/responsesList/responsesList";
 import PageLayout from "../../layout/PageLayout/PageLayout";
 import { cookie } from "../../utils";
 import { useDispatch } from "react-redux";
-import Like from "../../repositories/Like";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
 import { useRef, useState } from "react";
 import ReplyComponent from "./components/ReplyComponent/ReplyComponent";
+import Vote from "../../repositories/Vote";
 
 const Msgdetail = () => {
   const userData = cookie.getObject("userData");
@@ -19,11 +19,17 @@ const Msgdetail = () => {
   if (!userData) navigate("/");
   const { _id: user_id } = userData;
 
-  const { data: vote, error, loading, addOrRemoveLike } = useGetResponses();
+  const {
+    data: vote,
+    error,
+    loading,
+    addOrRemoveLike,
+    addOrRemoveResponseLike,
+  } = useGetResponses();
 
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
-    Like.sendVoteLike(vote_id).then((res) => {
+    Vote.sendLike(vote_id).then((res) => {
       const { result } = res.data;
       addOrRemoveLike(user_id);
       if (result === "like") {
@@ -106,7 +112,11 @@ const Msgdetail = () => {
             receiver_id={vote?.user_id?._id}
             containerRef={replyRef}
           />
-          <ResponsesList responsesArray={vote?.responses} vote_id={vote._id} />
+          <ResponsesList
+            responsesArray={vote?.responses}
+            vote_id={vote._id}
+            addOrRemoveResponseLike={addOrRemoveResponseLike}
+          />
         </Box>
       </Box>
 

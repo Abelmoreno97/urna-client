@@ -8,10 +8,10 @@ import ResponsesList from "./components/responsesList/responsesList";
 import PageLayout from "../../layout/PageLayout/PageLayout";
 import { cookie } from "../../utils";
 import { useDispatch } from "react-redux";
-import Like from "../../repositories/Like";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
 import { useRef, useState } from "react";
 import ReplyComponent from "./components/ReplyComponent/ReplyComponent";
+import Vote from "../../repositories/Vote";
 
 const Msgdetail = () => {
   const userData = cookie.getObject("userData");
@@ -23,7 +23,7 @@ const Msgdetail = () => {
 
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
-    Like.sendVoteLike(vote_id).then((res) => {
+    Vote.sendLike(vote_id).then((res) => {
       const { result } = res.data;
       addOrRemoveLike(user_id);
       if (result === "like") {

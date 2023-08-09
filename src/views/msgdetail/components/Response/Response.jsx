@@ -1,13 +1,31 @@
 import { Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import heart from "../../../../assets/heart.svg";
+import r_heart from "../../../../assets/r-heart.svg";
 import { useRef } from "react";
 import ReplyComponent from "../ReplyComponent/ReplyComponent";
+import ResponseRepository from "../../../../repositories/Response";
+import { useNavigate } from "react-router";
+import { cookie } from "../../../../utils";
 
-function Response({ response, vote_id }) {
+function Response({ response, vote_id, addOrRemoveResponseLike }) {
+  const userData = cookie.getObject("userData");
+  const navigate = useNavigate();
+  if (!userData) navigate("/");
+  const { _id: user_id } = userData;
+
   const responseContainerRef = useRef(null);
   const showResponseContainer = () => {
     responseContainerRef.current.style.height = "100px";
   };
+
+  const handleLike = (response_id) => {
+    ResponseRepository.sendLike(response_id).then((res) => {
+      const { result } = res.data;
+      addOrRemoveResponseLike(response_id, user_id);
+    });
+  };
+
+  const likeVerify = () => response?.likes?.find((id) => id === user_id);
 
   return (
     <VStack
@@ -37,7 +55,12 @@ function Response({ response, vote_id }) {
       <Text maxWidth="calc(100% - 40px)">{response.body}</Text>
 
       <HStack>
-        <Image src={heart} sx={{ marginLeft: "4px" }} />
+        <Image
+          src={likeVerify() ? r_heart : heart}
+          cursor="pointer"
+          sx={{ marginLeft: "4px" }}
+          onClick={() => handleLike(response._id)}
+        />
         <Button
           sx={{
             border: "none",

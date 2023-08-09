@@ -8,7 +8,10 @@ const Votebar = ({ sortedOptions }) => {
         <VStack key={"sortedOption" + i}>
           <Image w={"75px"} h={"75px"} src={option.images[0] || person} alt="opcion"></Image>
           <p>{option.title}</p>
-          <span>{option.stats.ratio || "sin"}%{" / "}{option.stats.votes || "sin"} votos</span>
+          <span>
+            {Math.floor(option.stats.ratio) || "sin"}%{" / "}
+            {option.stats.votes || "sin"} votos
+          </span>
         </VStack>
       ))}
     </HStack>

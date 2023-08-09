@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar/navbar";
 import { Image, Text, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
+import r_heart from "../../assets/r-heart.svg";
 import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,7 +74,7 @@ const VotationDetail = () => {
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image
-                    src={vote?.likes.includes(user_id) ? heart : plus}
+                    src={vote?.likes.includes(user_id) ? r_heart : heart}
                     cursor={"pointer"}
                     onClick={() => handleLike(vote._id)}
                   ></Image>

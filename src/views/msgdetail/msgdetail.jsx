@@ -19,7 +19,13 @@ const Msgdetail = () => {
   if (!userData) navigate("/");
   const { _id: user_id } = userData;
 
-  const { data: vote, error, loading, addOrRemoveLike } = useGetResponses();
+  const {
+    data: vote,
+    error,
+    loading,
+    addOrRemoveLike,
+    addOrRemoveResponseLike,
+  } = useGetResponses();
 
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
@@ -106,7 +112,11 @@ const Msgdetail = () => {
             receiver_id={vote?.user_id?._id}
             containerRef={replyRef}
           />
-          <ResponsesList responsesArray={vote?.responses} vote_id={vote._id} />
+          <ResponsesList
+            responsesArray={vote?.responses}
+            vote_id={vote._id}
+            addOrRemoveResponseLike={addOrRemoveResponseLike}
+          />
         </Box>
       </Box>
 

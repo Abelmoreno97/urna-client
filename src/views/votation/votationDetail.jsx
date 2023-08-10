@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Votebar from "../../components/votebar/votebar";
 import style from "./votation.module.css";
 import Navbar from "../../components/navbar/navbar";
-import { Image, Text, VStack } from "@chakra-ui/react";
+import { HStack, Image, Text, VStack } from "@chakra-ui/react";
 import chatleft from "../../assets/chat-left.svg";
 import heart from "../../assets/heart.svg";
 import r_heart from "../../assets/r-heart.svg";
@@ -10,7 +10,10 @@ import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { cookie } from "../../utils";
-import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
+import {
+  voteAddLike,
+  voteRemoveLike,
+} from "../../redux/features/votationDetailSlice";
 import { formatDate, openVotation } from "../../utils/date.js";
 import PageLayout from "../../layout/PageLayout/PageLayout";
 import Vote from "../../repositories/Vote";
@@ -58,7 +61,7 @@ const VotationDetail = () => {
           </Link>
         ) : null}
 
-        <div>
+        
           <div className={style.votecont}>
             {votes?.map((vote, i) => (
               <div key={"voteMsg" + i} className={style.votecard}>
@@ -70,7 +73,9 @@ const VotationDetail = () => {
                 </VStack>
 
                 <VStack>
-                  <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
+                  <Link
+                    to={`../votations/${votation._id}/messages/${vote._id}`}
+                  >
                     <Image src={chatleft}></Image>
                   </Link>
                   <Image
@@ -83,11 +88,11 @@ const VotationDetail = () => {
               </div>
             ))}
           </div>
-        </div>
+        
       </PageLayout>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <HStack>
         <Navbar votationId={votation._id} />
-      </div>
+      </HStack>
     </div>
   );
 };

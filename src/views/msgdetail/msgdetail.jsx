@@ -1,6 +1,6 @@
 import Gstyle from "./../../AppGlobal.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Image, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Image, Img, Text } from "@chakra-ui/react";
 import heart from "../../assets/heart.svg";
 import r_heart from "../../assets/r-heart.svg";
 import useGetResponses from "./useGetResponses";
@@ -9,9 +9,10 @@ import PageLayout from "../../layout/PageLayout/PageLayout";
 import { cookie } from "../../utils";
 import { useDispatch } from "react-redux";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import ReplyComponent from "./components/ReplyComponent/ReplyComponent";
 import Vote from "../../repositories/Vote";
+import defaultAvatar from "../../assets/person.svg";
 
 const Msgdetail = () => {
   const userData = cookie.getObject("userData");
@@ -78,9 +79,13 @@ const Msgdetail = () => {
               width: "100%",
             }}
           >
-            <Text width="100%" fontWeight="600">
-              {vote?.user_id?.username}
-            </Text>
+            <HStack>
+              <Img rounded="50%" width="60px" src={vote?.user_id?.avatar || defaultAvatar} />
+              <Text width="100%" fontWeight="600">
+                {vote?.user_id?.username}
+              </Text>
+            </HStack>
+
             <Text>{vote?.comment}</Text>
             <Image
               src={vote?.likes.includes(user_id) ? r_heart : heart}

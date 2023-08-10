@@ -41,13 +41,16 @@ const VotationDetail = () => {
     });
   };
 
+  
+
   if (error) return <h2>Lo sentimos hubo un error </h2>;
   if (status === "loading") return <h2>Loading...</h2>;
+
   return (
     <div>
       <PageLayout>
         <h1>{votation?.title}</h1>
-        <Votebar sortedOptions={sortedOptions} />
+        <Votebar sortedOptions={sortedOptions} alreadyVoted={alreadyVoted} />
         {!openVotation(votation.closing_date.slice(0, 10)) ? (
           <p>La votacion cierra el {formatDate(votation.closing_date)}</p>
         ) : (
@@ -64,7 +67,7 @@ const VotationDetail = () => {
         <div className={style.votecont}>
           {votes?.map((vote, i) => (
             <HStack
-            width={"350px"}
+              width={"340px"}
               key={"voteMsg" + i}
               alignItems={"cemter"}
               justify={"space-between"}
@@ -77,24 +80,45 @@ const VotationDetail = () => {
                 <p>
                   {vote?.user_id?.username} votó a {vote?.option_title}
                 </p>
-                {<br/>}
+                {<br />}
                 <Text maxWidth={"270px"}>{vote?.comment}</Text>
               </VStack>
 
               <VStack>
-                <HStack >
-                <Text>{vote?.responses.length}</Text>
-                <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
-                  <Image src={chatleft}></Image>
-                </Link>
+                <Link
+                  to={`../votations/${votation._id}/messages/${vote._id}`}
+                >
+                <HStack
+                w={"50px"}
+                  _hover={{
+                    cursor: "pointer",
+                    bgColor: "rgb(100, 100, 100, 0.5)",
+                  }}
+                  border={"1px solid rgb(70, 70, 70, 0.5)"}
+                  borderRadius={"5px"}
+                  padding={"5px"}
+                  bgColor={"blackAlpha.300"}
+                >
+                  <Text color={"white"}>{vote?.responses.length}</Text>
+                    <Image src={chatleft}></Image>
                 </HStack>
-                <HStack >
-                  <Text>{vote?.likes.length}</Text>
-                <Image
-                  src={vote?.likes.includes(user_id) ? r_heart : heart}
-                  cursor={"pointer"}
+                  </Link>
+                <HStack
+                  w={"50px"}
+                  _hover={{
+                    cursor: "pointer",
+                    bgColor: "rgb(100, 100, 100, 0.5)",
+                  }}
+                  border={"1px solid rgb(70, 70, 70, 0.5)"}
+                  borderRadius={"5px"}
+                  padding={"5px"}
+                  bgColor={"blackAlpha.300"}
                   onClick={() => handleLike(vote._id)}
-                ></Image>
+                >
+                  <Text>{vote?.likes.length}</Text>
+                  <Image
+                    src={vote?.likes.includes(user_id) ? r_heart : heart}
+                  ></Image>
                 </HStack>
               </VStack>
             </HStack>

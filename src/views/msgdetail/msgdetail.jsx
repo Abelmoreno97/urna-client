@@ -45,7 +45,7 @@ const Msgdetail = () => {
   const openReplyComponent = () => {
     replyRef.current.style.height = "100px";
   };
-
+ console.log(vote);
   if (error) return <h2>Lo siento hubo un error</h2>;
   if (loading) return <h2>Loading...</h2>;
   return (
@@ -62,6 +62,7 @@ const Msgdetail = () => {
           justifyContent: "start",
           borderRadius: "5px",
           gap: "5px",
+          overflow: "auto",
         }}
       >
         <Box

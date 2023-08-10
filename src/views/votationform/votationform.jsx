@@ -84,12 +84,10 @@ const Votationform = () => {
     ]);
     setForm({ title: "", description: "", opening_date: "", closing_date: "" });
     Votation.postVotation(formData).then((res) => {
-      console.log(res);
       alert("Su solicitud fue enviada con exito!");
       navigate("/votations");
     });
   };
-  console.log(errors);
 
   return (
     <PageLayout>

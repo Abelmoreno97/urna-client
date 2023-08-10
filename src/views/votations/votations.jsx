@@ -11,12 +11,13 @@ const Votations = () => {
   const { data, status, error } = useGetVotations();
   if (error) return <h2>Error</h2>;
   if (status == "loading") return <h2>Loader</h2>;
-  if (data.length == 0) return <h2>No hay votaciones activas</h2>;
+  // if (data.length == 0) return <h2>No hay votaciones activas</h2>;
   return (
     <div>
       <PageLayout>
         <h1>Votations active</h1>
         <br />
+        {(data.length == 0) && <h2>No hay votaciones activas</h2>}
         <div className={style.mapcont}>
           {data.map((votation, i) => (
             <div key={i}>

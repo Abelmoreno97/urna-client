@@ -61,34 +61,45 @@ const VotationDetail = () => {
           </Link>
         ) : null}
 
-        
-          <div className={style.votecont}>
-            {votes?.map((vote, i) => (
-              <div key={"voteMsg" + i} className={style.votecard}>
-                <VStack>
-                  <p>
-                    {vote?.user_id?.username} votó a {vote?.option_title}
-                  </p>
-                  <p>{vote?.comment}</p>
-                </VStack>
+        <div className={style.votecont}>
+          {votes?.map((vote, i) => (
+            <HStack
+            width={"350px"}
+              key={"voteMsg" + i}
+              alignItems={"cemter"}
+              justify={"space-between"}
+              p={"5px"}
+              border={"1px solid black"}
+              maxWidth={"350px"}
+              borderRadius={"5px"}
+            >
+              <VStack align={"start"}>
+                <p>
+                  {vote?.user_id?.username} votó a {vote?.option_title}
+                </p>
+                {<br/>}
+                <Text maxWidth={"270px"}>{vote?.comment}</Text>
+              </VStack>
 
-                <VStack>
-                  <Link
-                    to={`../votations/${votation._id}/messages/${vote._id}`}
-                  >
-                    <Image src={chatleft}></Image>
-                  </Link>
-                  <Image
-                    src={vote?.likes.includes(user_id) ? r_heart : heart}
-                    cursor={"pointer"}
-                    onClick={() => handleLike(vote._id)}
-                  ></Image>
-                  <Text>{vote?.likes.length} likes</Text>
-                </VStack>
-              </div>
-            ))}
-          </div>
-        
+              <VStack>
+                <HStack >
+                <Text>{vote?.responses.length}</Text>
+                <Link to={`../votations/${votation._id}/messages/${vote._id}`}>
+                  <Image src={chatleft}></Image>
+                </Link>
+                </HStack>
+                <HStack >
+                  <Text>{vote?.likes.length}</Text>
+                <Image
+                  src={vote?.likes.includes(user_id) ? r_heart : heart}
+                  cursor={"pointer"}
+                  onClick={() => handleLike(vote._id)}
+                ></Image>
+                </HStack>
+              </VStack>
+            </HStack>
+          ))}
+        </div>
       </PageLayout>
       <HStack>
         <Navbar votationId={votation._id} />

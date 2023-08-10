@@ -1,0 +1,51 @@
+.visor{
+    position: relative;
+    width: 600px;
+    height: 660px;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .opacity{
+    width: 600px;
+    height: 660px;
+    overflow: hidden;
+    position: absolute;
+    background-color: #2d3748e8;
+    z-index: 1;
+  }
+  .wrapper{
+    height: 100%;
+    width: fit-content;
+    background-color: #ffffff63;
+    display: flex;
+    animation: move 30s infinite;
+  }
+  @keyframes move {
+    0%,7.5%{
+      transform: translateX(0px);
+    }
+    15%, 22.5%{
+      transform: translateX(-600px);
+    }
+    30%, 37.5%{
+      transform: translateX(-1200px);
+    }
+    45%, 52.5%{
+        transform: translateX(-1800px);
+      }
+      60%, 67.5%{
+        transform: translateX(-2400px);
+      }
+      75%, 82.5%{
+        transform: translateX(-3000px);
+      }
+     
+    100%{
+      transform: translateX(0px);
+    }
+  }
+  .img{
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+  }

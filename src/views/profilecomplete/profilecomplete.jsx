@@ -57,8 +57,8 @@ const ProfileComplete = () => {
   };
 
   const handleSubmit = (e) => {
-    setStatus("loading");
     e.preventDefault();
+    setStatus("loading");
     User.postUser(profileInfo)
       .then((res) => {
         setStatus("");
@@ -91,14 +91,18 @@ const ProfileComplete = () => {
             onChange={handleChange}
           />
         </FormControl>
+        <br></br>
         <FormControl isRequired>
           <FormLabel>Email</FormLabel>
           <Input type="email" name="email" value={profileInfo.email} disabled />
         </FormControl>
+        <br></br>
+        <FormLabel>Choose a region</FormLabel>
         <Select
           placeholder="Select option"
           name="region_id"
           onChange={handleChange}
+          style={{ color: "black", backgroundColor: "white" }}
         >
           {regions?.map((region, index) => (
             <option key={index} value={region._id}>
@@ -108,7 +112,12 @@ const ProfileComplete = () => {
         </Select>
         <>
           <Button
-            isDisabled={status == "loading"}
+            isDisabled={
+              status == "loading" ||
+              profileInfo.username == "" ||
+              profileInfo.email == "" ||
+              profileInfo.region_id == ""
+            }
             mt={4}
             colorScheme="teal"
             onClick={onOpen}

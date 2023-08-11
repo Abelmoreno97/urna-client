@@ -12,6 +12,7 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { cookie } from "../../utils";
 // import { Redirect } from "react-router-dom";
@@ -73,7 +74,9 @@ const ProfileComplete = () => {
   }
   return (
     <PageLayout>
-      <h1>UserComplete</h1>
+      <VStack>
+      <h1>Bienvenido a Voto Libre App.</h1>
+      <h2>Complete tu perfil con los siguientes datos para empezar</h2>
       <form onSubmit={handleSubmit}>
         {/* <RadioGroup onChange={(e) => handleChange({ target: { name: "avatar", value: e } })}>
           <Stack direction="row">
@@ -150,6 +153,7 @@ const ProfileComplete = () => {
           </AlertDialog>
         </>
       </form>
+      </VStack>
     </PageLayout>
   );
 };

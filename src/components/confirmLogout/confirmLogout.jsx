@@ -9,19 +9,13 @@ import {
   AlertDialogOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import User from "../../repositories/User";
+import { BACKEND_BASE_URL } from "../../config/envs";
 
 function AlertDialogExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
-  const navigate = useNavigate();
   const logout = () => {
-    User.logout()
-      .then(() => {
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
+    location.href = BACKEND_BASE_URL + "/auth/logout";
   };
   return (
     <>

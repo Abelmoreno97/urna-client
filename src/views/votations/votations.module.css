@@ -1,9 +1,8 @@
 .mapcont{
-    height: 500px;
-    width: 400px;   
-    display: flex;
-    flex-direction: column;
+    height: 500px;   
     align-items: center;
     justify-content: start;
     gap:15px;
+    margin-bottom: 40px;
+    overflow: auto;
 }

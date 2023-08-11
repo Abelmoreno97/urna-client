@@ -6,7 +6,7 @@ function PageLayout({ children }) {
       alignItems={"center"}
       justify={"space-between"}
       bg={"#2D3748"}
-      p={"30px"}
+      p={"15px"}
       w={["400px","500px","700px","900px","900px"]}
       h={"700px"}
     >

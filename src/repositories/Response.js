@@ -1,14 +1,11 @@
 import { BACKEND_BASE_URL } from "../config/envs";
+
+import { socket } from "@src/services/socketService.js";
+
 export default {
-  send: (responseData) =>
-    fetch(`${BACKEND_BASE_URL}/responses`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ responseData }),
-      credentials: "include",
-    }).then((res) => res.json()),
+  create: (responseData, cb) => {
+    socket.emit("response:create", responseData, cb);
+  },
   sendLike: (response_id) =>
     fetch(`${BACKEND_BASE_URL}/responses/${response_id}/likes`, {
       method: "PATCH",

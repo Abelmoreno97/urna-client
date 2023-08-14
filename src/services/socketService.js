@@ -1,4 +1,7 @@
-// import { Manager } from "socket.io-client";
-// import { SOCKET_IO_BASE_URL } from "../config/envs";
+import { io } from "socket.io-client";
+import { BACKEND_BASE_URL } from "@src/config/envs";
 
-// export const manager = new Manager(SOCKET_IO_BASE_URL);
+export const connect = () =>
+  io(BACKEND_BASE_URL, {
+    withCredentials: true,
+  });

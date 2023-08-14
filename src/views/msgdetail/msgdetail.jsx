@@ -9,10 +9,11 @@ import PageLayout from "../../layout/PageLayout/PageLayout";
 import { cookie } from "../../utils";
 import { useDispatch } from "react-redux";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import ReplyComponent from "./components/ReplyComponent/ReplyComponent";
 import Vote from "../../repositories/Vote";
 import defaultAvatar from "../../assets/person.svg";
+import { socket } from "@src/services/socketService.js";
 
 const Msgdetail = () => {
   const userData = cookie.getObject("userData");
@@ -45,7 +46,22 @@ const Msgdetail = () => {
   const openReplyComponent = () => {
     replyRef.current.style.height = "100px";
   };
- console.log(vote);
+
+  useEffect(() => {
+    if (vote._id) {
+      socket.emit("room:join", { roomType: "vote", roomId: vote._id });
+      socket.on("response:new", (args) => {
+        console.log(args);
+        // actualizar el redux de los receptores
+      });
+    }
+
+    return () => {
+      socket.emit("room:leave", { roomType: "vote", roomId: vote._id });
+      socket.off("response:new");
+    };
+  }, [vote._id]);
+
   if (error) return <h2>Lo siento hubo un error</h2>;
   if (loading) return <h2>Loading...</h2>;
   return (

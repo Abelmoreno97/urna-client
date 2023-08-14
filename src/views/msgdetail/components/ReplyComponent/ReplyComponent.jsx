@@ -18,9 +18,9 @@ function ReplyComponent({ containerRef, vote_id, receiver_id }) {
       body: responseInp,
     };
     setResponseInp("");
-    ResponseRepository.send(responseData).then((res) => {
-      console.log(res);
-      // setear la respuesta en redux para no tener que recargar para actualizar
+    ResponseRepository.create(responseData, (data) => {
+      // esta cb tiene que actualizar el redux del emisor
+      console.log("callback", data);
     });
   };
   const handleCancel = () => {

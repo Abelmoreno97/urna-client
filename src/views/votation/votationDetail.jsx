@@ -41,28 +41,26 @@ const VotationDetail = () => {
   };
 
   useEffect(() => {
-    socket.emit("room:join", { roomType: "votation", roomId: id });
+    // socket.emit("room:join", { roomType: "votation", roomId: id });
 
     // pendiente (todavía no se emiten los eventos)
-    socket.onAny((eventName, args) => {
-      console.log(args);
-      const listener = {
-        like: (args) => {
-          dispatch(voteAddLike({ vote_id: args.vote_id, user_id: args.user_id }));
-        },
-        dislike: (args) => {
-          dispatch(voteRemoveLike({ vote_id: args.vote_id, user_id: args.user_id }));
-        },
-      };
-      listener[eventName](args);
-    });
+    // socket.onAny((eventName, args) => {
+    //   console.log(args);
+    //   const listener = {
+    //     like: (args) => {
+    //       dispatch(voteAddLike({ vote_id: args.vote_id, user_id: args.user_id }));
+    //     },
+    //     dislike: (args) => {
+    //       dispatch(voteRemoveLike({ vote_id: args.vote_id, user_id: args.user_id }));
+    //     },
+    //   };
+    //   listener[eventName](args);
+    // });
 
-    socket.on("error", (arg) => {
-      console.log(arg);
-    });
-    return () => {
-      socket && socket.disconnect();
-    };
+    // socket.on("error", (arg) => {
+    //   console.log(arg);
+    // });
+    return () => {};
   }, []);
 
   if (error) return <h2>Lo sentimos hubo un error </h2>;

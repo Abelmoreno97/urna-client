@@ -9,7 +9,6 @@ import Userinfo from "./views/userinfo/userinfo";
 import Votationform from "./views/votationform/votationform";
 import Msgdetail from "./views/msgdetail/msgdetail";
 import ProfileComplete from "./views/profilecomplete/profilecomplete";
-import SocketIo from "./views/SocketIo/SocketIo";
 
 function App() {
   const loc = useLocation();
@@ -25,7 +24,6 @@ function App() {
         <Route path="/votations/:votationId/messages/:voteId" element={<Msgdetail />} />
         <Route path="/userinfo" element={<Userinfo />} />
         <Route path="/profile/complete" element={<ProfileComplete />} />
-        <Route path="/socketio" element={<SocketIo />} />
       </Routes>
     </>
   );

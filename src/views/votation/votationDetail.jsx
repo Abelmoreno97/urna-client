@@ -8,7 +8,7 @@ import heart from "../../assets/heart.svg";
 import r_heart from "../../assets/r-heart.svg";
 import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { cookie } from "../../utils";
 import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
 import { formatDate, openVotation } from "../../utils/date.js";
@@ -19,15 +19,15 @@ import { socket } from "@src/services/socketService";
 
 const VotationDetail = () => {
   const { id } = useParams();
-  useGetVotationDetails(id);
   const navigate = useNavigate();
 
   const userData = cookie.getObject("userData");
   if (!userData) navigate("/");
   const { _id: user_id } = userData;
 
-  const { data, error, status } = useSelector((state) => state.votationDetail);
+  const { data, error, status } = useGetVotationDetails(id);
   const { votation, votes, sortedOptions, alreadyVoted } = data;
+
   const dispatch = useDispatch();
   const handleLike = (vote_id) => {
     Vote.sendLike(vote_id).then((res) => {

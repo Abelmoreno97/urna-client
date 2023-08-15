@@ -13,28 +13,8 @@ function useGetVotationDetails(id) {
       Votation.getDetails(id)
         .then((res) => {
           const { votes, votation, alreadyVoted } = res.data;
-          const optionStatsObj = {};
 
-          votes?.forEach((vote) => {
-            const { option_title } = vote;
-            if (optionStatsObj[option_title]) optionStatsObj[option_title].votes++;
-            else optionStatsObj[option_title] = { votes: 1, ratio: null };
-          });
-
-          for (const option in optionStatsObj) {
-            optionStatsObj[option].ratio = (optionStatsObj[option].votes / votes?.length) * 100;
-          }
-
-          const { options } = votation;
-          for (const option of options) {
-            option.stats = {
-              votes: optionStatsObj[option.title.trim()]?.votes,
-              ratio: optionStatsObj[option.title.trim()]?.ratio,
-            };
-          }
-          const sortedOptions = options?.sort((a, b) => b.stats.votes - a.stats.votes);
-
-          dispatch(setData({ votes, votation, sortedOptions, alreadyVoted }));
+          dispatch(setData({ votes, votation, alreadyVoted }));
         })
         .catch((err) => {
           console.log(err);
@@ -42,6 +22,36 @@ function useGetVotationDetails(id) {
         });
     }
   }, []);
+
+  useEffect(() => {
+    if (data?.votes && data?.votation?.options) {
+      const optionStatsObj = {};
+
+      const { votes, votation } = data;
+      votes?.forEach((vote) => {
+        const { option_title } = vote;
+        if (optionStatsObj[option_title]) optionStatsObj[option_title].votes++;
+        else optionStatsObj[option_title] = { votes: 1, ratio: null };
+      });
+
+      for (const option in optionStatsObj) {
+        optionStatsObj[option].ratio = (optionStatsObj[option].votes / votes?.length) * 100;
+      }
+
+      const newVotation = JSON.parse(JSON.stringify(votation));
+      const { options } = newVotation;
+      for (const option of options) {
+        option.stats = {
+          votes: optionStatsObj[option.title.trim()]?.votes,
+          ratio: optionStatsObj[option.title.trim()]?.ratio,
+        };
+      }
+      const sortedOptions = options?.sort((a, b) => b.stats.votes - a.stats.votes);
+
+      dispatch(setData({ sortedOptions, votation: newVotation }));
+    }
+  }, [data?.votes]);
+
   return { data, error, status };
 }
 

@@ -11,7 +11,7 @@ export const votationDetailSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      state.data = action.payload;
+      state.data = { ...state.data, ...action.payload };
       state.status = "succeded";
     },
     setStatus: (state, action) => {

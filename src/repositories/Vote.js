@@ -1,4 +1,5 @@
 import { BACKEND_BASE_URL } from "../config/envs";
+import { socket } from "@src/services/socketService";
 
 export default {
   getWithResponses: (id) =>
@@ -20,4 +21,8 @@ export default {
       },
       credentials: "include",
     }).then((res) => res.json()),
+
+  like: (vote_id, cb) => {
+    socket.emit("vote:like", { vote_id }, cb);
+  },
 };

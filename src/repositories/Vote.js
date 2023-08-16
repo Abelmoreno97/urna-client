@@ -25,4 +25,7 @@ export default {
   like: (vote_id, cb) => {
     socket.emit("vote:like", { vote_id }, cb);
   },
+  dislike: (vote_id, cb) => {
+    socket.emit("vote:dislike", { vote_id }, cb);
+  },
 };

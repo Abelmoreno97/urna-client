@@ -10,7 +10,10 @@ import plus from "../../assets/plus-square.svg";
 import useGetVotationDetails from "./useGetVotationDetails";
 import { useDispatch } from "react-redux";
 import { cookie } from "../../utils";
-import { voteAddLike, voteRemoveLike } from "../../redux/features/votationDetailSlice";
+import {
+  voteAddLike,
+  voteRemoveLike,
+} from "../../redux/features/votationDetailSlice";
 import { formatDate, openVotation } from "../../utils/date.js";
 import PageLayout from "../../layout/PageLayout/PageLayout";
 import Vote from "../../repositories/Vote";
@@ -32,12 +35,14 @@ const VotationDetail = () => {
 
   const handleLike = (vote_id) => {
     Vote.like(vote_id, () => {
-      // then del metodo
-      console.log("log del callback de like");
       dispatch(voteAddLike({ vote_id, user_id }));
     });
   };
-  const handleDislike = (vote_id) => {};
+  const handleDislike = (vote_id) => {
+    Vote.dislike(vote_id, () => {
+      dispatch(voteRemoveLike({ vote_id, user_id }));
+    });
+  };
 
   useEffect(() => {
     socket.emit("room:join", { room: "votation", roomId: id });
@@ -116,11 +121,15 @@ const VotationDetail = () => {
                   padding={"5px"}
                   bgColor={"blackAlpha.300"}
                   onClick={() =>
-                    vote?.likes.includes(user_id) ? handleDislike(vote._id) : handleLike(vote._id)
+                    vote?.likes.includes(user_id)
+                      ? handleDislike(vote._id)
+                      : handleLike(vote._id)
                   }
                 >
                   <Text>{vote?.likes.length}</Text>
-                  <Image src={vote?.likes.includes(user_id) ? r_heart : heart}></Image>
+                  <Image
+                    src={vote?.likes.includes(user_id) ? r_heart : heart}
+                  ></Image>
                 </HStack>
               </VStack>
             </HStack>

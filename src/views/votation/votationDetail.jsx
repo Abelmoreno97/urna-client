@@ -29,38 +29,23 @@ const VotationDetail = () => {
   const { votation, votes, sortedOptions, alreadyVoted } = data;
 
   const dispatch = useDispatch();
+
   const handleLike = (vote_id) => {
-    Vote.sendLike(vote_id).then((res) => {
-      const { result } = res.data;
-      if (result === "like") {
-        dispatch(voteAddLike({ vote_id, user_id }));
-      } else {
-        dispatch(voteRemoveLike({ vote_id, user_id }));
-      }
+    Vote.like(vote_id, () => {
+      // then del metodo
+      console.log("log del callback de like");
+      dispatch(voteAddLike({ vote_id, user_id }));
     });
   };
+  const handleDislike = (vote_id) => {};
 
   useEffect(() => {
-    // socket.emit("room:join", { roomType: "votation", roomId: id });
+    socket.emit("room:join", { room: "votation", roomId: id });
 
-    // pendiente (todavía no se emiten los eventos)
-    // socket.onAny((eventName, args) => {
-    //   console.log(args);
-    //   const listener = {
-    //     like: (args) => {
-    //       dispatch(voteAddLike({ vote_id: args.vote_id, user_id: args.user_id }));
-    //     },
-    //     dislike: (args) => {
-    //       dispatch(voteRemoveLike({ vote_id: args.vote_id, user_id: args.user_id }));
-    //     },
-    //   };
-    //   listener[eventName](args);
-    // });
-
-    // socket.on("error", (arg) => {
-    //   console.log(arg);
-    // });
-    return () => {};
+    //pendiente (todavía no se emiten los eventos)
+    socket.on("error", (arg) => {
+      console.log(arg);
+    });
   }, []);
 
   if (error) return <h2>Lo sentimos hubo un error </h2>;
@@ -130,7 +115,9 @@ const VotationDetail = () => {
                   borderRadius={"5px"}
                   padding={"5px"}
                   bgColor={"blackAlpha.300"}
-                  onClick={() => handleLike(vote._id)}
+                  onClick={() =>
+                    vote?.likes.includes(user_id) ? handleDislike(vote._id) : handleLike(vote._id)
+                  }
                 >
                   <Text>{vote?.likes.length}</Text>
                   <Image src={vote?.likes.includes(user_id) ? r_heart : heart}></Image>

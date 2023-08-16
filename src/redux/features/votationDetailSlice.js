@@ -24,7 +24,8 @@ export const votationDetailSlice = createSlice({
       const { vote_id, user_id } = action.payload;
       state.data.votes = state.data.votes?.map((vote) => {
         if (vote._id === vote_id) {
-          vote.likes = [...vote.likes, user_id];
+          const likesSet = new Set([...vote.likes, user_id]);
+          vote.likes = [...likesSet];
         }
         return vote;
       });
